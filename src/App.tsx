@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
-import ContactCard from './ContactCard';
-import ContactDetails from './ContactDetails';
+import ContactCard from './components/ContactCard';
+import ContactDetails from './components/ContactDetails';
 import { Contact } from './types';
 
 // function App() {
