@@ -40,3 +40,33 @@
 .read-the-docs {
   color: #888;
 }
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.contact-card {
+  cursor: pointer;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.contact-details {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.contact-details button {
+  margin-bottom: 20px;
+}
