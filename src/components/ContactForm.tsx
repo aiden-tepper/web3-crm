@@ -3,13 +3,15 @@ import React from 'react';
 import { Contact } from '../types';
 
 interface Props {
+    mode: 'create' | 'edit';
     contact: Contact;
     onFieldChange: (field: keyof Contact, value: string) => void;
     onCancel: () => void;
     onSave: () => void;
+    onDelete: () => void;
 }
 
-const ContactForm: React.FC<Props> = ({ contact, onFieldChange, onCancel, onSave }) => (
+const ContactForm: React.FC<Props> = ({ mode, contact, onFieldChange, onCancel, onSave, onDelete }) => (
     <div className="contact-details">
         <div className="form-group">
             <label htmlFor="firstName">First Name:</label>
@@ -53,6 +55,7 @@ const ContactForm: React.FC<Props> = ({ contact, onFieldChange, onCancel, onSave
 
         <button onClick={onCancel}>Cancel</button>
         <button onClick={onSave}>Save</button>
+        {mode === 'edit' && <button onClick={onDelete}>Delete</button>}
     </div>
 );
 

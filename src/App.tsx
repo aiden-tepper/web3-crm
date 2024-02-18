@@ -9,9 +9,10 @@ import { Contact } from './types';
 
 function App() {
   // convex
-  const contacts = useQuery(api.contacts.get) as Contact[];
-  const updateContact = useMutation(api.contacts.update);
-  const createContact = useMutation(api.contacts.create);
+  const contacts = useQuery(api.contacts.getContacts) as Contact[];
+  const updateContact = useMutation(api.contacts.updateContact);
+  const createContact = useMutation(api.contacts.createContact);
+  const deleteContact = useMutation(api.contacts.deleteContact);
 
   // react
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -89,6 +90,16 @@ function App() {
     setMode('view');
   };
 
+  const handleDelete = () => {
+    if (editableContact?._id) {
+      deleteContact({ id: editableContact._id }).then((result) =>
+        console.log(result)
+      );
+    }
+    setMode('view');
+    setSelectedContact(null);
+  }
+
   return (
     <div>
       <h1>web3-crm</h1>
@@ -120,10 +131,12 @@ function App() {
       {/* Edit/Create contact form */}
       {(mode === 'edit' || mode === 'create') && (
         <ContactForm
+          mode={mode}
           contact={editableContact || { _id: '', firstName: '', lastName: '', email: '', phone: '', position: '', company: '', location: '', description: ''}}
           onFieldChange={handleFieldChange}
           onSave={handleSave}
           onCancel={handleCancel}
+          onDelete={handleDelete}
         />
       )}
     </div>

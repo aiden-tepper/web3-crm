@@ -1,14 +1,14 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
-export const get = query({
+export const getContacts = query({
   args: {},
   handler: async (ctx) => {
     return await ctx.db.query("contacts").collect();
   },
 });
 
-export const update = mutation({
+export const updateContact = mutation({
   args: {
     id: v.id("contacts"),
     updates: v.object({
@@ -29,7 +29,7 @@ export const update = mutation({
   },
 });
 
-export const create = mutation({
+export const createContact = mutation({
   args: {
     contact: v.object({
       firstName: v.string(),
@@ -45,5 +45,15 @@ export const create = mutation({
   handler: async (ctx, args) => {
     const id = await ctx.db.insert("contacts", args.contact);
     return id;
+  },
+});
+
+export const deleteContact = mutation({
+  args: {
+    id: v.id("contacts"),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+    return true;
   },
 });
