@@ -31,8 +31,7 @@ function App() {
   const handleSave = () => {
     if (mode === 'create') {
       createContact({
-        id: editableContact?._id,
-        updates: {
+        contact: {
           firstName: editableContact?.firstName,
           lastName: editableContact?.lastName,
           email: editableContact?.email,
@@ -120,9 +119,9 @@ function App() {
       {/* Edit/Create contact form */}
       {(mode === 'edit' || mode === 'create') && (
         <ContactForm
-          contact={editableContact}
+          contact={editableContact || { _id: '', firstName: '', lastName: '', email: '', phone: '', position: '', company: '', location: '', description: ''}}
           onFieldChange={handleFieldChange}
-          onSubmit={handleSave}
+          onSave={handleSave}
           onCancel={handleCancel}
         />
       )}
