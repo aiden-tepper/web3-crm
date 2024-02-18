@@ -59,7 +59,8 @@ function App() {
         }
       }).then((result) =>
         console.log(result)
-      );  
+      );
+      setSelectedContact(editableContact);
     }
     setMode('view');
   };
