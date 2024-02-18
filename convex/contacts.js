@@ -28,3 +28,22 @@ export const update = mutation({
     return await ctx.db.get(id);
   },
 });
+
+export const create = mutation({
+  args: {
+    contact: v.object({
+      firstName: v.string(),
+      lastName: v.string(),
+      email: v.string(),
+      phone: v.string(),
+      position: v.string(),
+      company: v.string(),
+      location: v.string(),
+      description: v.string(),
+    }),
+  },
+  handler: async (ctx, args) => {
+    const id = await ctx.db.insert("contacts", args.contact);
+    return id;
+  },
+});
