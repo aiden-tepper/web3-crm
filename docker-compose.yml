@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_CONVEX_URL=${VITE_CONVEX_URL}
+    depends_on:
+      - convex
+  convex:
+    image: node:21.6.1
+    working_dir: /convex
+    volumes:
+      - ./convex:/convex
+    command: sh -c "npm install convex -g && convex dev"
+    ports:
+      - "3030:3030"
