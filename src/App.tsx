@@ -189,12 +189,18 @@ function App() {
         <>
           {!selectedContact ? (
             <>
-              <div className="contacts-grid">
-                {contacts?.map((contact) => (
-                  <ContactCard key={contact._id} contact={contact} onClick={() => setSelectedContact(contact)} />
-                ))}
-              </div>
-              <button onClick={handleNewContactClick}>New Contact</button>
+              {!contacts ? (
+                <p>Loading contacts...</p>
+              ) : (
+                <>
+                  <div className="contacts-grid">
+                    {contacts?.map((contact) => (
+                      <ContactCard key={contact._id} contact={contact} onClick={() => setSelectedContact(contact)} />
+                    ))}
+                  </div>
+                  <button onClick={handleNewContactClick}>New Contact</button>
+                </>
+              )}
             </>
           ) : (
             <>
