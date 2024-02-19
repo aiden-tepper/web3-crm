@@ -6,9 +6,11 @@ import { useQuery } from 'convex/react';
 
 interface Props {
     contactId: string;
+    onEdit: () => void;
+    onAdd: () => void;
 }
 
-const InteractionLog: React.FC<Props> = ({ contactId }) => {
+const InteractionLog: React.FC<Props> = ({ contactId, onEdit, onAdd }) => {
     const interactions = useQuery(api.interactions.getInteractions, {contactId}) as Interaction[] | undefined;
 
     if (!interactions) {
@@ -20,13 +22,17 @@ const InteractionLog: React.FC<Props> = ({ contactId }) => {
         <h3>Interactions</h3>
         <ul>
             {interactions.map(interaction => (
-                <li key={interaction._id}>
-                    <p><strong>Type:</strong> {interaction.type}</p>
-                    <p><strong>Date:</strong> {interaction.datetime}</p>
-                    <p><strong>Notes:</strong> {interaction.notes}</p>
-                </li>
+                <React.Fragment key={interaction._id}>
+                    <li>
+                        <p><strong>Type:</strong> {interaction.type}</p>
+                        <p><strong>Date:</strong> {interaction.datetime}</p>
+                        <p><strong>Notes:</strong> {interaction.notes}</p>
+                    </li>
+                    <button onClick={onEdit}>Edit</button>
+                </React.Fragment>
             ))}
         </ul>
+        <button onClick={onAdd}>Add Interaction</button>
     </div>
     );
 };

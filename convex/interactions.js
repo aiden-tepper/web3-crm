@@ -65,7 +65,7 @@ export const createInteraction = mutation({
   args: {
     interaction: v.object({
       contactId: v.id("contacts"),
-      date: v.string(),
+      datetime: v.string(),
       type: v.string(),
       notes: v.string(),
     }),
