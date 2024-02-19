@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { useQuery, useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
 import ContactCard from './components/ContactCard';
 import ContactDetails from './components/ContactDetails';
 import ContactForm from "./components/ContactForm";
 import { Contact, Interaction } from './types';
 import InteractionLog from "./components/InteractionLog";
 import InteractionForm from "./components/InteractionForm";
+import { useContacts } from "./hooks/useContacts";
+import { useInteractions } from "./hooks/useInteractions";
 
 function App() {
-  // convex contacts
-  const contacts = useQuery(api.contacts.getContacts) as Contact[];
-  const updateContact = useMutation(api.contacts.updateContact);
-  const createContact = useMutation(api.contacts.createContact);
-  const deleteContact = useMutation(api.contacts.deleteContact);
-
-  // convex interactions
-  const updateInteraction = useMutation(api.interactions.updateInteraction);
-  const createInteraction = useMutation(api.interactions.createInteraction);
-  const deleteInteraction = useMutation(api.interactions.deleteInteraction);
+  // convex
+  const { contacts, updateContact, createContact, deleteContact } = useContacts();
+  const { createInteraction, updateInteraction, deleteInteraction } = useInteractions();
 
   // react
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
