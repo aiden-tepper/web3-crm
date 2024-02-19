@@ -6,6 +6,7 @@ import ContactCard from './components/ContactCard';
 import ContactDetails from './components/ContactDetails';
 import ContactForm from "./components/ContactForm";
 import { Contact } from './types';
+import InteractionLog from "./components/InteractionLog";
 
 function App() {
   // convex
@@ -23,11 +24,17 @@ function App() {
     setEditableContact(selectedContact);
   }, [selectedContact]);
 
-  const handleFieldChange = (field: keyof Contact, value: string) => {
+  const handleContactFieldChange = (field: keyof Contact, value: string) => {
     if (editableContact) {
       setEditableContact({ ...editableContact, [field]: value });
     }
   };
+
+  // const handleInteractionsFieldChange = (field: keyof Interactions, value: string) => {
+  //   if (editableContact) {
+  //     setEditableContact({ ...editableContact, [field]: value });
+  //   }
+  // };
 
   const handleSave = () => {
     if (mode === 'create') {
@@ -116,14 +123,19 @@ function App() {
               <button onClick={handleNewContactClick}>New Contact</button>
             </>
           ) : (
-            <ContactDetails
-              contact={selectedContact}
-              onFieldChange={handleFieldChange}
-              onBack={() => {
-                setSelectedContact(null);
-              }}
-              onEdit={handleEditClick}
-            />
+            <>
+              <ContactDetails
+                contact={selectedContact}
+                onFieldChange={handleContactFieldChange}
+                onBack={() => {
+                  setSelectedContact(null);
+                }}
+                onEdit={handleEditClick}
+              />
+              <InteractionLog
+                contactId={selectedContact._id}
+              />
+            </>
           )}
         </>
       )}
@@ -133,7 +145,7 @@ function App() {
         <ContactForm
           mode={mode}
           contact={editableContact || { _id: '', firstName: '', lastName: '', email: '', phone: '', position: '', company: '', location: '', description: ''}}
-          onFieldChange={handleFieldChange}
+          onFieldChange={handleContactFieldChange}
           onSave={handleSave}
           onCancel={handleCancel}
           onDelete={handleDelete}

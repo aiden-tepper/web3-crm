@@ -9,4 +9,12 @@ export interface Contact {
     company: string;
     location: string;
     description: string;
-}  
+}
+
+export interface Interaction {
+    _id: string;
+    contactId: string;
+    type: string;
+    datetime: string;
+    notes: string;
+}

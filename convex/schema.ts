@@ -12,4 +12,10 @@ export default defineSchema({
     location: v.string(),
     description: v.string(),
   }),
+  interactions: defineTable({
+    contactId: v.string(),
+    type: v.string(),
+    datetime: v.string(),
+    notes: v.string(),
+  }),
 });
