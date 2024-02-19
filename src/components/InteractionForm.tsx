@@ -19,8 +19,13 @@ const InteractionForm: React.FC<Props> = ({ mode, interaction, onFieldChange, on
         </div>
         
         <div className="form-group">
-            <label htmlFor="datetime">Datetime:</label>
-            <input type="text" id="datetime" value={interaction.datetime} onChange={(e) => onFieldChange('datetime', e.target.value)} />
+            <label htmlFor="datetime">Date:</label>
+            <input 
+                type="date" 
+                id="datetime" 
+                value={interaction.datetime.slice(0, 10)} // Assuming datetime is in ISO format "YYYY-MM-DDTHH:MM:SS.ZZZZ"
+                onChange={(e) => onFieldChange('datetime', e.target.value + 'T00:00:00.000Z')} // Append time part if your backend expects a full datetime string
+            />
         </div>
         
         <div className="form-group">

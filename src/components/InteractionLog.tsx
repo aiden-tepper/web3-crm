@@ -25,7 +25,7 @@ const InteractionLog: React.FC<Props> = ({ contactId, onEdit, onAdd }) => {
                 <React.Fragment key={interaction._id}>
                     <li>
                         <p><strong>Type:</strong> {interaction.type}</p>
-                        <p><strong>Date:</strong> {interaction.datetime}</p>
+                        <p><strong>Date:</strong> {interaction.datetime.slice(0, 10)}</p>
                         <p><strong>Notes:</strong> {interaction.notes}</p>
                     </li>
                     <button onClick={() => onEdit(interaction)}>Edit</button>
