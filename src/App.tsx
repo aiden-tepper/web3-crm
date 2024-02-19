@@ -134,7 +134,8 @@ function App() {
       );
     } else if (interactionMode === 'edit') {
       updateInteraction({
-        interaction: {
+        id: editableInteraction?._id,
+        updates: {
           contactId: selectedContact?._id,
           type: editableInteraction?.type,
           datetime: editableInteraction?.datetime,
@@ -148,7 +149,8 @@ function App() {
     setInteractionMode('view');
   }
 
-  const handleInteractionEditClick = () => {
+  const handleInteractionEditClick = (interaction: Interaction) => {
+    setSelectedInteraction(interaction);
     setEditableInteraction(selectedInteraction);
     setInteractionMode('edit');
   }
@@ -208,7 +210,7 @@ function App() {
                   />
                   <InteractionLog
                     contactId={selectedContact._id}
-                    onEdit={handleInteractionEditClick}
+                    onEdit={(interaction) => handleInteractionEditClick(interaction)}
                     onAdd={handleNewInteractionClick}
                   />
                 </>

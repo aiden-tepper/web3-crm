@@ -6,7 +6,7 @@ import { useQuery } from 'convex/react';
 
 interface Props {
     contactId: string;
-    onEdit: () => void;
+    onEdit: (interaction: Interaction) => void;
     onAdd: () => void;
 }
 
@@ -28,7 +28,7 @@ const InteractionLog: React.FC<Props> = ({ contactId, onEdit, onAdd }) => {
                         <p><strong>Date:</strong> {interaction.datetime}</p>
                         <p><strong>Notes:</strong> {interaction.notes}</p>
                     </li>
-                    <button onClick={onEdit}>Edit</button>
+                    <button onClick={() => onEdit(interaction)}>Edit</button>
                 </React.Fragment>
             ))}
         </ul>
