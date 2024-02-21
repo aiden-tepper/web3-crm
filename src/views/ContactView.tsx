@@ -6,8 +6,7 @@ import InteractionForm from "../components/InteractionForm";
 import { useContacts } from "../hooks/useContacts";
 
 const ContactView = () => {
-  const { setEditableContact, setMode, selectedContact, interactionMode, editableInteraction } =
-    useAppContext();
+  const { setEditableContact, setMode, selectedContact, interactionMode } = useAppContext();
 
   const { getContacts } = useContacts();
 
@@ -29,39 +28,33 @@ const ContactView = () => {
   const contacts = getContacts;
 
   if (selectedContact) {
-    return (
-      <>
-        {interactionMode === "view" && (
-          <>
-            <ContactDetails contact={selectedContact} />
-            <InteractionLog contactId={selectedContact._id} />
-          </>
-        )}
-
-        {interactionMode === "edit" || interactionMode === "create" ? (
-          <InteractionForm
-            interaction={editableInteraction || { _id: "", contactId: "", type: "", datetime: "", notes: "" }}
-          />
-        ) : null}
-      </>
-    );
+    if (interactionMode === "view") {
+      return (
+        <>
+          <ContactDetails contact={selectedContact} />
+          <InteractionLog contactId={selectedContact._id} />
+        </>
+      );
+    } else if (interactionMode === "edit" || interactionMode === "create") {
+      return <InteractionForm contactId={selectedContact._id} />;
+    } else {
+      return null;
+    }
   } else {
-    return (
-      <>
-        {!contacts ? (
-          <p>Loading contacts...</p>
-        ) : (
-          <>
-            <div className="contacts-grid">
-              {contacts?.map((contact) => (
-                <ContactCard key={contact._id} contact={contact} />
-              ))}
-            </div>
-            <button onClick={handleNewContactClick}>New Contact</button>
-          </>
-        )}
-      </>
-    );
+    if (contacts) {
+      return (
+        <>
+          <div className="contacts-grid">
+            {contacts?.map((contact) => (
+              <ContactCard key={contact._id} contact={contact} />
+            ))}
+          </div>
+          <button onClick={handleNewContactClick}>New Contact</button>
+        </>
+      );
+    } else {
+      return <p>Loading contacts...</p>;
+    }
   }
 };
 

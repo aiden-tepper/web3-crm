@@ -1,16 +1,14 @@
 // InteractionForm.tsx
 import React from "react";
-import { Interaction } from "../types";
 import { useAppContext } from "../context/useAppContext";
 import { useInteractions } from "../hooks/useInteractions";
 
 interface Props {
-  interaction: Interaction;
+  contactId: string;
 }
 
-const InteractionForm: React.FC<Props> = ({ interaction }) => {
+const InteractionForm: React.FC<Props> = ({ contactId }) => {
   const {
-    mode,
     handleInteractionFieldChange,
     editableInteraction,
     interactionMode,
@@ -19,7 +17,7 @@ const InteractionForm: React.FC<Props> = ({ interaction }) => {
     setSelectedInteraction,
   } = useAppContext();
 
-  const { updateInteraction, createInteraction, deleteInteraction } = useInteractions({ contactId: null });
+  const { updateInteraction, createInteraction, deleteInteraction } = useInteractions({ contactId });
 
   const handleInteractionSave = () => {
     if (interactionMode === "create") {
@@ -58,6 +56,8 @@ const InteractionForm: React.FC<Props> = ({ interaction }) => {
     setSelectedInteraction(null);
   };
 
+  const interaction = editableInteraction || { _id: "", contactId: "", type: "", datetime: "", notes: "" };
+
   return (
     <div className="interaction-details">
       <div className="form-group">
@@ -90,9 +90,9 @@ const InteractionForm: React.FC<Props> = ({ interaction }) => {
         />
       </div>
 
-      <button onClick={() => handleInteractionCancel}>Cancel</button>
-      <button onClick={() => handleInteractionSave}>Save</button>
-      {mode === "edit" && <button onClick={() => handleInteractionDelete}>Delete</button>}
+      <button onClick={handleInteractionCancel}>Cancel</button>
+      <button onClick={handleInteractionSave}>Save</button>
+      {interactionMode === "edit" && <button onClick={handleInteractionDelete}>Delete</button>}
     </div>
   );
 };

@@ -64,7 +64,7 @@ const InteractionLog: React.FC<Props> = ({ contactId }) => {
           </React.Fragment>
         ))}
       </ul>
-      <button onClick={() => handleNewInteractionClick}>Add Interaction</button>
+      <button onClick={handleNewInteractionClick}>Add Interaction</button>
     </div>
   );
 };
