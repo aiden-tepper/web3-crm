@@ -1,11 +1,15 @@
 // hooks/useInteraction.js
-import { useMutation} from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { Interaction } from "../types";
 
-export function useInteractions() {
-    const updateInteraction = useMutation(api.interactions.updateInteraction);
-    const createInteraction = useMutation(api.interactions.createInteraction);
-    const deleteInteraction = useMutation(api.interactions.deleteInteraction);  
-    
-    return { updateInteraction, createInteraction, deleteInteraction };
+export function useInteractions({ contactId }: { contactId: string | null }) {
+  const getInteractions = useQuery(api.interactions.getInteractions, { contactId }) as
+    | Interaction[]
+    | undefined;
+  const updateInteraction = useMutation(api.interactions.updateInteraction);
+  const createInteraction = useMutation(api.interactions.createInteraction);
+  const deleteInteraction = useMutation(api.interactions.deleteInteraction);
+
+  return { getInteractions, updateInteraction, createInteraction, deleteInteraction };
 }
