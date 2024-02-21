@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { Contact, Interaction, AppContextProps } from "./types";
+import React, { createContext, useEffect, useState } from "react";
+import { Contact, Interaction, AppContextProps } from "../types";
 
-const AppContext = createContext<AppContextProps>({} as AppContextProps);
+export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -50,5 +50,3 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };
-
-export const useAppContext = () => useContext(AppContext);

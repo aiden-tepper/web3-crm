@@ -1,7 +1,7 @@
 // ContactCard.tsx
 import React from "react";
 import { Contact } from "../types";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../context/useAppContext";
 
 interface Props {
   contact: Contact;

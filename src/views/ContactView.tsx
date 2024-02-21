@@ -1,5 +1,4 @@
-import React from "react";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../context/useAppContext";
 import ContactCard from "../components/ContactCard";
 import ContactDetails from "../components/ContactDetails";
 import InteractionLog from "../components/InteractionLog";

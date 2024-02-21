@@ -1,5 +1,5 @@
 import "./App.css";
-import { AppProvider } from "./AppContext";
+import { AppProvider } from "./context/AppContext";
 import MainView from "./views/MainView";
 
 function App() {

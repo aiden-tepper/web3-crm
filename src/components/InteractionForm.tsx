@@ -1,7 +1,7 @@
 // InteractionForm.tsx
 import React from "react";
 import { Interaction } from "../types";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../context/useAppContext";
 import { useInteractions } from "../hooks/useInteractions";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../context/useAppContext";
 import ContactForm from "../components/ContactForm";
 import ContactView from "./ContactView";
 
