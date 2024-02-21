@@ -10,4 +10,4 @@ export function useContacts() {
     const deleteContact = useMutation(api.contacts.deleteContact);
     
     return { contacts, updateContact, createContact, deleteContact };
-};
+}

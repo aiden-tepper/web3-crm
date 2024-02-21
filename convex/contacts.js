@@ -23,7 +23,7 @@ export const updateContact = mutation({
     }),
   },
   handler: async (ctx, args) => {
-    const {id, updates} = args;
+    const { id, updates } = args;
     await ctx.db.replace(id, updates);
     return await ctx.db.get(id);
   },
