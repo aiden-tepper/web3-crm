@@ -1,8 +1,15 @@
 import "./App.css";
 import { AppProvider } from "./context/AppContext";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { ThirdwebProvider, ConnectEmbed, useAddress } from "@thirdweb-dev/react";
 import MainView from "./views/MainView";
-import { ConnectWallet } from "@thirdweb-dev/react";
+
+function AuthenticatedApp() {
+  // Use useAddress hook to check if user is signed in
+  const address = useAddress();
+
+  // If an address is present, render MainView, otherwise show the ConnectEmbed for sign in
+  return address ? <MainView /> : <ConnectEmbed />;
+}
 
 function App() {
   return (
@@ -10,8 +17,7 @@ function App() {
       <AppProvider>
         <div>
           <h1>web3-crm</h1>
-          <ConnectWallet />
-          <MainView />
+          <AuthenticatedApp />
         </div>
       </AppProvider>
     </ThirdwebProvider>

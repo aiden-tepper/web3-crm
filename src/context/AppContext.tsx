@@ -10,6 +10,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedInteraction, setSelectedInteraction] = useState<Interaction | null>(null);
   const [editableInteraction, setEditableInteraction] = useState<Interaction | null>(null);
   const [interactionMode, setInteractionMode] = useState<"create" | "edit" | "view">("view");
+  const [address, setAddress] = useState<string | null>(null);
 
   useEffect(() => {
     setEditableContact(selectedContact);
@@ -44,6 +45,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     setEditableInteraction,
     interactionMode,
     setInteractionMode,
+    address,
+    setAddress,
     handleContactFieldChange,
     handleInteractionFieldChange,
   };
