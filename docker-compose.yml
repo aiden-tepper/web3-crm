@@ -6,6 +6,7 @@ services:
       - "3000:3000"
     environment:
       - VITE_CONVEX_URL=${VITE_CONVEX_URL}
+    command: npm run dev -- --host 0.0.0.0
     depends_on:
       - convex
   convex:
@@ -13,6 +14,6 @@ services:
     working_dir: /convex
     volumes:
       - ./convex:/convex
-    command: sh -c "npm install convex -g && convex dev"
+    command: npx convex dev
     ports:
       - "3030:3030"
