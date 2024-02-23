@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles.css";
 import { AppProvider } from "./context/AppContext";
 import { ThirdwebProvider, ConnectEmbed, useAddress } from "@thirdweb-dev/react";
 import MainView from "./views/MainView";
@@ -15,10 +15,10 @@ function App() {
   return (
     <ThirdwebProvider activeChain="ethereum" clientId={process.env.THIRDWEB_CLIENT_ID}>
       <AppProvider>
-        <div>
-          <h1>web3-crm</h1>
-          <AuthenticatedApp />
-        </div>
+        {/* <div>
+          <h1>web3-crm</h1> */}
+        <AuthenticatedApp />
+        {/* </div> */}
       </AppProvider>
     </ThirdwebProvider>
   );

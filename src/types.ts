@@ -1,4 +1,6 @@
 // types.ts
+import { SVGProps } from "react";
+
 export interface Contact {
   _id: string;
   firstName: string;
@@ -35,3 +37,7 @@ export interface AppContextProps {
   handleContactFieldChange: (field: keyof Contact, value: string) => void;
   handleInteractionFieldChange: (field: keyof Interaction, value: string) => void;
 }
+
+export type IconSvgProps = SVGProps<SVGSVGElement> & {
+  size?: number;
+};
