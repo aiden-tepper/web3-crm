@@ -3,14 +3,16 @@ import { SVGProps } from "react";
 
 export interface Contact {
   _id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   phone: string;
   position: string;
   company: string;
   location: string;
   description: string;
+  team: string;
+  status: string;
+  avatar: string;
 }
 
 export interface Interaction {
