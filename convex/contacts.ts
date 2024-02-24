@@ -12,14 +12,16 @@ export const updateContact = mutation({
   args: {
     id: v.id("contacts"),
     updates: v.object({
-      firstName: v.string(),
-      lastName: v.string(),
+      name: v.string(),
       email: v.string(),
       phone: v.string(),
       position: v.string(),
       company: v.string(),
       location: v.string(),
       description: v.string(),
+      team: v.string(),
+      status: v.string(),
+      avatar: v.string(),
     }),
   },
   handler: async (ctx, args) => {
@@ -32,14 +34,16 @@ export const updateContact = mutation({
 export const createContact = mutation({
   args: {
     contact: v.object({
-      firstName: v.string(),
-      lastName: v.string(),
+      name: v.string(),
       email: v.string(),
       phone: v.string(),
       position: v.string(),
       company: v.string(),
       location: v.string(),
       description: v.string(),
+      team: v.string(),
+      status: v.string(),
+      avatar: v.string(),
     }),
   },
   handler: async (ctx, args) => {
