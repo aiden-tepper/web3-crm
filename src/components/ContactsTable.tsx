@@ -22,6 +22,7 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import { PlusIcon, ChevronDownIcon, SearchIcon, DeleteIcon, EditIcon, EyeIcon } from "../assets";
+import { useContacts } from "../hooks/useContacts";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -52,9 +53,16 @@ function capitalize(str: string) {
 interface Props {
   contacts: Contact[] | null;
   handleOpen: (key: string) => void;
+  setIsDeleteModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setContactToDelete: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const ContactsTable: React.FC<Props> = ({ contacts, handleOpen }) => {
+const ContactsTable: React.FC<Props> = ({
+  contacts,
+  handleOpen,
+  setIsDeleteModalVisible,
+  setContactToDelete,
+}) => {
   /*
     REACT STATES
   */
@@ -158,7 +166,10 @@ const ContactsTable: React.FC<Props> = ({ contacts, handleOpen }) => {
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-danger cursor-pointer active:opacity-50"
+                onClick={() => onDelete(String(user._id))}
+              >
                 <DeleteIcon />
               </span>
             </Tooltip>
@@ -198,6 +209,12 @@ const ContactsTable: React.FC<Props> = ({ contacts, handleOpen }) => {
   const onClear = useCallback(() => {
     setFilterValue("");
     setPage(1);
+  }, []);
+
+  const onDelete = useCallback((id: string) => {
+    // deleteContact({ id: key }).then((result) => console.log(result));
+    setContactToDelete(id);
+    setIsDeleteModalVisible(true);
   }, []);
 
   /* 
