@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
-  const { selectedContact, handleContactFieldChange, editableContact } = useAppContext();
+  const { selectedContact, setSelectedContact, handleContactFieldChange, editableContact } = useAppContext();
   const { updateContact } = useContacts();
 
   return (
@@ -148,6 +148,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
                     },
                   }).then((result) => {
                     console.log(result);
+                    setSelectedContact(editableContact);
                     setModalMode("view");
                   })
                 }

@@ -145,7 +145,10 @@ const ContactsTable: React.FC<Props> = ({ contacts, handleOpen }) => {
         return (
           <div className="relative flex items-center gap-2">
             <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                onClick={() => handleOpen(String(user._id))}
+              >
                 <EyeIcon />
               </span>
             </Tooltip>
