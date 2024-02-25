@@ -24,11 +24,21 @@ import {
   Selection,
   ChipProps,
   SortDescriptor,
+  Tooltip,
+  useDisclosure,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "@nextui-org/react";
 import { PlusIcon } from "../assets/PlusIcon";
 import { VerticalDotsIcon } from "../assets/VerticalDotsIcon";
 import { ChevronDownIcon } from "../assets/ChevronDownIcon";
 import { SearchIcon } from "../assets/SearchIcon";
+import { DeleteIcon } from "../assets/DeleteIcon";
+import { EditIcon } from "../assets/EditIcon";
+import { EyeIcon } from "../assets/EyeIcon";
 import { Contact } from "../types";
 
 const ContactView = () => {
@@ -113,7 +123,7 @@ const ContactView = () => {
   const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 
   const [filterValue, setFilterValue] = useState("");
-  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
+  const [selectedKey, setSelectedKey] = useState<Selection>(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -121,6 +131,7 @@ const ContactView = () => {
     column: "age",
     direction: "ascending",
   });
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
 
   const [page, setPage] = useState(1);
 
@@ -192,19 +203,22 @@ const ContactView = () => {
         );
       case "actions":
         return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+          <div className="relative flex items-center gap-2">
+            <Tooltip content="Details">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EyeIcon />
+              </span>
+            </Tooltip>
+            <Tooltip content="Edit user">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EditIcon />
+              </span>
+            </Tooltip>
+            <Tooltip color="danger" content="Delete user">
+              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                <DeleteIcon />
+              </span>
+            </Tooltip>
           </div>
         );
       default:
@@ -242,6 +256,13 @@ const ContactView = () => {
     setFilterValue("");
     setPage(1);
   }, []);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleOpen = (key: string) => {
+    setSelectedContact(contacts?.find((contact) => contact._id === key) ?? null);
+    onOpen();
+  };
 
   const topContent = useMemo(() => {
     return (
@@ -334,9 +355,9 @@ const ContactView = () => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
+          {/* {selectedKeys === "all"
             ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
+            : `${selectedKeys.size} of ${filteredItems.length} selected`} */}
         </span>
         <Pagination
           isCompact
@@ -357,45 +378,90 @@ const ContactView = () => {
         </div>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+  }, [selectedKey, items.length, page, pages, hasSearchFilter]);
 
   if (contacts) {
     return (
-      <Table
-        aria-label="Example table with custom cells, pagination and sorting"
-        isHeaderSticky
-        bottomContent={bottomContent}
-        bottomContentPlacement="outside"
-        classNames={{
-          wrapper: "max-h-[382px]",
-        }}
-        selectedKeys={selectedKeys}
-        selectionMode="multiple"
-        sortDescriptor={sortDescriptor}
-        topContent={topContent}
-        topContentPlacement="outside"
-        onSelectionChange={setSelectedKeys}
-        onSortChange={setSortDescriptor}
-      >
-        <TableHeader columns={headerColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-              allowsSorting={column.sortable}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
-          {(item) => (
-            <TableRow key={item._id}>
-              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      <>
+        <Table
+          aria-label="Example table with custom cells, pagination and sorting"
+          isHeaderSticky
+          bottomContent={bottomContent}
+          bottomContentPlacement="outside"
+          classNames={{
+            wrapper: "max-h-[382px]",
+          }}
+          selectedKeys={selectedKey}
+          selectionMode="multiple"
+          selectionBehavior="replace"
+          onRowAction={(key) => handleOpen(String(key))}
+          sortDescriptor={sortDescriptor}
+          topContent={topContent}
+          topContentPlacement="outside"
+          onSelectionChange={setSelectedKey}
+          onSortChange={setSortDescriptor}
+        >
+          <TableHeader columns={headerColumns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+                allowsSorting={column.sortable}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody emptyContent={"No users found"} items={sortedItems}>
+            {(item) => (
+              <TableRow key={item._id}>
+                {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        <Modal
+          backdrop={"blur"}
+          size="5xl"
+          isOpen={isOpen}
+          placement="auto"
+          onClose={onClose}
+          isDismissable={false}
+          isKeyboardDismissDisabled={true}
+        >
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">{selectedKey}</ModalHeader>
+                <ModalBody>
+                  {selectedContact && (
+                    <div>
+                      <p>Name: {selectedContact.name}</p>
+                      <p>Position: {selectedContact.position}</p>
+                      <p>Team: {selectedContact.team}</p>
+                      <p>Email: {selectedContact.email}</p>
+                      <p>Status: {selectedContact.status}</p>
+                      <p>Location: {selectedContact.location}</p>
+                      <p>Company: {selectedContact.company}</p>
+                      <p>Phone: {selectedContact.phone}</p>
+                      <p>Description: {selectedContact.description}</p>
+                      <p>Avatar: {selectedContact.avatar}</p>
+                    </div>
+                  )}
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onPress={onClose}>
+                    Action
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      </>
     );
   } else {
     return <p>Loading contacts...</p>;
