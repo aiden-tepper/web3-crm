@@ -1,22 +1,29 @@
 // ContactCard.tsx
 import React from "react";
 import { Contact } from "../types";
-import { useAppContext } from "../context/useAppContext";
+import { Button } from "@nextui-org/react";
 
 interface Props {
   contact: Contact;
+  setModalMode: (mode: string) => void;
 }
 
-const ContactCard: React.FC<Props> = ({ contact }) => {
-  const { setSelectedContact } = useAppContext();
+const ContactCard: React.FC<Props> = ({ contact, setModalMode }) => {
   return (
-    <div className="contact-card" onClick={() => setSelectedContact(contact)}>
-      <h2>
-        {contact.firstName} {contact.lastName}
-      </h2>
-      <p>
-        {contact.position} at {contact.company}
-      </p>
+    <div>
+      <p>Name: {contact.name}</p>
+      <p>Position: {contact.position}</p>
+      <p>Team: {contact.team}</p>
+      <p>Email: {contact.email}</p>
+      <p>Status: {contact.status}</p>
+      <p>Location: {contact.location}</p>
+      <p>Company: {contact.company}</p>
+      <p>Phone: {contact.phone}</p>
+      <p>Description: {contact.description}</p>
+      <p>Avatar: {contact.avatar}</p>
+      <Button color="primary" onPress={() => setModalMode("edit")}>
+        Edit
+      </Button>
     </div>
   );
 };

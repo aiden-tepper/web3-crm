@@ -288,7 +288,7 @@ const ContactsTable: React.FC<Props> = ({ contacts, handleOpen }) => {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
+            <Button color="primary" endContent={<PlusIcon />} onPress={() => handleOpen("create")}>
               Add New
             </Button>
           </div>
