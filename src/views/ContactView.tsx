@@ -132,6 +132,7 @@ const ContactView = () => {
     direction: "ascending",
   });
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [modalMode, setModalMode] = useState("view");
 
   const [page, setPage] = useState(1);
 
@@ -262,6 +263,16 @@ const ContactView = () => {
   const handleOpen = (key: string) => {
     setSelectedContact(contacts?.find((contact) => contact._id === key) ?? null);
     onOpen();
+  };
+
+  const handleClose = () => {
+    setSelectedContact(null);
+    setModalMode("view");
+    onClose();
+  };
+
+  const toggleModalMode = (mode) => {
+    setModalMode(mode);
   };
 
   const topContent = useMemo(() => {
@@ -425,11 +436,11 @@ const ContactView = () => {
           size="5xl"
           isOpen={isOpen}
           placement="auto"
-          onClose={onClose}
+          onClose={handleClose}
           isDismissable={false}
           isKeyboardDismissDisabled={true}
         >
-          <ModalContent>
+          {/* <ModalContent>
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">{selectedKey}</ModalHeader>
@@ -459,6 +470,71 @@ const ContactView = () => {
                 </ModalFooter>
               </>
             )}
+          </ModalContent> */}
+          <ModalContent>
+            <ModalHeader className="flex flex-col gap-1">
+              {modalMode === "view" ? "Contact Details" : "Edit Contact"}
+            </ModalHeader>
+            <ModalBody>
+              {modalMode === "view" ? (
+                selectedContact && (
+                  <div>
+                    <p>Name: {selectedContact.name}</p>
+                    <p>Position: {selectedContact.position}</p>
+                    <p>Team: {selectedContact.team}</p>
+                    <p>Email: {selectedContact.email}</p>
+                    <p>Status: {selectedContact.status}</p>
+                    <p>Location: {selectedContact.location}</p>
+                    <p>Company: {selectedContact.company}</p>
+                    <p>Phone: {selectedContact.phone}</p>
+                    <p>Description: {selectedContact.description}</p>
+                    <p>Avatar: {selectedContact.avatar}</p>
+                    <Button color="primary" onPress={() => toggleModalMode("edit")}>
+                      Edit
+                    </Button>
+                  </div>
+                )
+              ) : (
+                <form>
+                  <Input size="md" type="text" label="Name" defaultValue={selectedContact?.name} />
+                  <Input size="md" type="text" label="Position" defaultValue={selectedContact?.position} />
+                  <Input size="md" type="text" label="Team" defaultValue={selectedContact?.team} />
+                  <Input size="md" type="email" label="Email" defaultValue={selectedContact?.email} />
+                  <Input size="md" type="text" label="Status" defaultValue={selectedContact?.status} />
+                  <Input size="md" type="text" label="Location" defaultValue={selectedContact?.location} />
+                  <Input size="md" type="text" label="Company" defaultValue={selectedContact?.company} />
+                  <Input size="md" type="tel" label="Phone" defaultValue={selectedContact?.phone} />
+                  <Input
+                    size="md"
+                    type="text"
+                    label="Description"
+                    defaultValue={selectedContact?.description}
+                  />
+                  <Input size="md" type="text" label="Avatar" defaultValue={selectedContact?.avatar} />
+                </form>
+              )}
+            </ModalBody>
+            <ModalFooter>
+              {modalMode === "edit" ? (
+                <>
+                  <Button color="danger" variant="light" onPress={() => setModalMode("view")}>
+                    Cancel
+                  </Button>
+                  <Button
+                    color="primary"
+                    onPress={() => {
+                      /* Handle save logic here */
+                    }}
+                  >
+                    Save
+                  </Button>
+                </>
+              ) : (
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              )}
+            </ModalFooter>
           </ModalContent>
         </Modal>
       </>
