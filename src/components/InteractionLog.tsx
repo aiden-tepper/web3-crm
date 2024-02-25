@@ -3,6 +3,7 @@ import React from "react";
 import { Interaction } from "../types";
 import { useAppContext } from "../context/useAppContext";
 import { useInteractions } from "../hooks/useInteractions";
+import { Button } from "@nextui-org/react";
 
 interface Props {
   contactId: string;
@@ -60,11 +61,11 @@ const InteractionLog: React.FC<Props> = ({ contactId }) => {
                 <strong>Notes:</strong> {interaction.notes}
               </p>
             </li>
-            <button onClick={() => handleInteractionEditClick(interaction)}>Edit</button>
+            <Button onPress={() => handleInteractionEditClick(interaction)}>Edit</Button>
           </React.Fragment>
         ))}
       </ul>
-      <button onClick={handleNewInteractionClick}>Add Interaction</button>
+      <Button onPress={handleNewInteractionClick}>Add Interaction</Button>
     </div>
   );
 };

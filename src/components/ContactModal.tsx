@@ -4,6 +4,8 @@ import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 import ContactCard from "./ContactCard";
 import ContactForm from "./ContactForm";
+import InteractionLog from "./InteractionLog";
+import InteractionForm from "./InteractionForm";
 
 interface Props {
   modalMode: string;
@@ -35,7 +37,11 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
         </ModalHeader>
         <ModalBody>
           {modalMode === "view" && selectedContact && (
-            <ContactCard contact={selectedContact} setModalMode={setModalMode} />
+            <>
+              <ContactCard contact={selectedContact} setModalMode={setModalMode} />
+              <InteractionLog contactId={selectedContact._id} />
+              <InteractionForm contactId={selectedContact._id} />
+            </>
           )}
           {modalMode === "edit" && <ContactForm />}
           {modalMode === "create" && <ContactForm />}
