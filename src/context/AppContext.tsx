@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useDisclosure } from "react";
 import { Contact, Interaction, AppContextProps } from "../types";
 
 export const AppContext = createContext<AppContextProps>({} as AppContextProps);
