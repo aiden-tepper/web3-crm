@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
@@ -18,6 +18,7 @@ interface Props {
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
   const { selectedContact, setSelectedContact, editableContact } = useAppContext();
   const { updateContact, createContact } = useContacts();
+  const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
   return (
     <Modal
@@ -39,8 +40,12 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
           {modalMode === "view" && selectedContact && (
             <>
               <ContactCard contact={selectedContact} setModalMode={setModalMode} />
-              <InteractionLog contactId={selectedContact._id} />
-              <InteractionForm contactId={selectedContact._id} />
+              <InteractionLog contactId={selectedContact._id} onOpen={() => setIsInteractionFormOpen(true)} />
+              <InteractionForm
+                contactId={selectedContact._id}
+                isOpen={isInteractionFormOpen}
+                onClose={() => setIsInteractionFormOpen(false)}
+              />
             </>
           )}
           {modalMode === "edit" && <ContactForm />}
