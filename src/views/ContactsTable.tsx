@@ -22,7 +22,6 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import { PlusIcon, ChevronDownIcon, SearchIcon, DeleteIcon, EditIcon, EyeIcon } from "../assets";
-import { useContacts } from "../hooks/useContacts";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",

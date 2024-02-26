@@ -80,64 +80,23 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
   };
 
   const currDate = new Intl.DateTimeFormat("en-CA", {
-    // 'en-CA' uses 'YYYY-MM-DD' format
     timeZone: "America/Los_Angeles",
   }).format(new Date());
 
-  // return (
-  //   <div className="interaction-details">
-  //     <div className="form-group">
-  //       <label htmlFor="type">Type:</label>
-  //       <input
-  //         type="text"
-  //         id="type"
-  //         value={interaction.type}
-  //         onChange={(e) => handleInteractionFieldChange("type", e.target.value)}
-  //       />
-  //     </div>
-
-  //     <div className="form-group">
-  //       <label htmlFor="datetime">Date:</label>
-  //       <input
-  //         type="date"
-  //         id="datetime"
-  //         value={interaction.datetime.slice(0, 10)} // Assuming datetime is in ISO format "YYYY-MM-DDTHH:MM:SS.ZZZZ"
-  //         onChange={(e) => handleInteractionFieldChange("datetime", e.target.value + "T00:00:00.000Z")} // Append time part if your backend expects a full datetime string
-  //       />
-  //     </div>
-
-  //     <div className="form-group">
-  //       <label htmlFor="notes">Notes:</label>
-  //       <input
-  //         type="text"
-  //         id="notes"
-  //         value={interaction.notes}
-  //         onChange={(e) => handleInteractionFieldChange("notes", e.target.value)}
-  //       />
-  //     </div>
-
-  //     <button onClick={handleInteractionCancel}>Cancel</button>
-  //     <button onClick={handleInteractionSave}>Save</button>
-  //     {interactionMode === "edit" && <button onClick={handleInteractionDelete}>Delete</button>}
-  //   </div>
-  // );
-
   return (
-    <Modal size="full" isOpen={isOpen} onClose={onClose}>
+    <Modal
+      size="full"
+      isOpen={isOpen}
+      onClose={onClose}
+      isDismissable={false}
+      isKeyboardDismissDisabled={true}
+    >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
           {interactionMode === "edit" && "Edit Interaction"}
           {interactionMode === "create" && "Create Interaction"}
         </ModalHeader>
         <ModalBody>
-          {/* <form> */}
-          {/* <label htmlFor="type">Type:</label>
-      <input
-        type="text"
-        id="type"
-        value={interaction.type}
-        onChange={(e) => handleInteractionFieldChange("type", e.target.value)}
-      /> */}
           <div className="relative flex items-center gap-2">
             <p>Type: </p>
             <Tooltip content="phone call">
@@ -165,14 +124,6 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
               </span>
             </Tooltip>
           </div>
-
-          {/* <label htmlFor="datetime">Date:</label>
-      <input
-        type="date"
-        id="datetime"
-        value={interaction.datetime.slice(0, 10)} // Assuming datetime is in ISO format "YYYY-MM-DDTHH:MM:SS.ZZZZ"
-        onChange={(e) => handleInteractionFieldChange("datetime", e.target.value + "T00:00:00.000Z")} // Append time part if your backend expects a full datetime string
-      /> */}
           <Input
             label="Date"
             placeholder="Enter date"
@@ -180,14 +131,6 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
             value={interaction.datetime || currDate}
             onValueChange={(e) => handleInteractionFieldChange("datetime", e)}
           />
-
-          {/* <label htmlFor="notes">Notes:</label>
-      <input
-        type="text"
-        id="notes"
-        value={interaction.notes}
-        onChange={(e) => handleInteractionFieldChange("notes", e.target.value)}
-      /> */}
           <Textarea
             variant="flat"
             label="Notes"
@@ -207,7 +150,6 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
           <Button onPress={handleInteractionSave}>Save</Button>
           {interactionMode === "edit" && <Button onPress={handleInteractionDelete}>Delete</Button>}
         </ModalFooter>
-        {/* </form> */}
       </ModalContent>
     </Modal>
   );

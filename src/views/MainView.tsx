@@ -1,24 +1,12 @@
-// import { useAppContext } from "../context/useAppContext";
-// import ContactForm from "../components/ContactForm";
-// import ContactView from "./ContactView";
 import { useState, useCallback } from "react";
-import ContactsTable from "../components/ContactsTable";
+import ContactsTable from "./ContactsTable";
 import ContactModal from "../components/ContactModal";
-// import InteractionModal from "../components/InteractionModal";
 import DeleteModal from "../components/DeleteModal";
 import { useDisclosure } from "@nextui-org/react";
 import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 
 const MainView = () => {
-  // const { mode } = useAppContext();
-
-  // if (mode === "view") {
-  //   return <ContactView />;
-  // } else if (mode === "create" || mode === "edit") {
-  //   return <ContactForm />;
-  // }
-
   const [modalMode, setModalMode] = useState("view");
   const { setSelectedContact, setEditableContact } = useAppContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -90,7 +78,6 @@ const MainView = () => {
         onClose={onClose}
         handleClose={handleClose}
       ></ContactModal>
-      {/* <InteractionModal></InteractionModal> */}
       <DeleteModal
         isDeleteModalVisible={isDeleteModalVisible}
         cancelDelete={cancelDelete}

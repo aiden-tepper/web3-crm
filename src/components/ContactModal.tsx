@@ -21,15 +21,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
   return (
-    <Modal
-      backdrop={"blur"}
-      size="5xl"
-      isOpen={isOpen}
-      placement="auto"
-      onClose={handleClose}
-      isDismissable={false}
-      isKeyboardDismissDisabled={true}
-    >
+    <Modal backdrop={"blur"} size="5xl" isOpen={isOpen} placement="auto" onClose={handleClose}>
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
           {modalMode === "view" && "Contact Details"}
