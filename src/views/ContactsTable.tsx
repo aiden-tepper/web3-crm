@@ -31,14 +31,15 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
-  { name: "AGE", uid: "age", sortable: true },
-  { name: "ROLE", uid: "role", sortable: true },
+  { name: "POSITION", uid: "position", sortable: true },
+  { name: "COMPANY", uid: "company", sortable: true },
+  { name: "LOCATION", uid: "location" },
   { name: "TEAM", uid: "team" },
   { name: "EMAIL", uid: "email" },
   { name: "STATUS", uid: "status", sortable: true },
   { name: "ACTIONS", uid: "actions" },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "position", "company", "actions"];
 const statusOptions = [
   { name: "Active", uid: "active" },
   { name: "Paused", uid: "paused" },
@@ -69,7 +70,7 @@ const ContactsTable: React.FC<Props> = ({
   const [selectedKey, setSelectedKey] = useState<Selection>(new Set([]));
   const [page, setPage] = useState(1);
   const [visibleColumns, setVisibleColumns] = useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
   const [statusFilter, setStatusFilter] = useState<Selection>("all");
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "age",
@@ -343,7 +344,7 @@ const ContactsTable: React.FC<Props> = ({
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
         classNames={{
-          wrapper: "max-h-[382px]",
+          wrapper: "max-h-screen",
         }}
         selectedKeys={selectedKey}
         selectionMode="multiple"
