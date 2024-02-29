@@ -11,6 +11,9 @@ import { PhoneIcon } from "./PhoneIcon";
 import { JobIcon } from "./JobIcon";
 import { LocationIcon } from "./LocationIcon";
 import { LinkedInIcon } from "./LinkedInIcon";
+import { CompanyIcon } from "./CompanyIcon";
+import { EllipsisIcon } from "./EllipsisIcon";
+import { PersonIcon } from "./PersonIcon";
 
 export {
   PlusIcon,
@@ -26,4 +29,7 @@ export {
   JobIcon,
   LocationIcon,
   LinkedInIcon,
+  CompanyIcon,
+  EllipsisIcon,
+  PersonIcon,
 };
