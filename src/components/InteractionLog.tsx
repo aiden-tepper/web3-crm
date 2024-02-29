@@ -3,7 +3,7 @@ import React from "react";
 import { Interaction } from "../types";
 import { useAppContext } from "../context/useAppContext";
 import { useInteractions } from "../hooks/useInteractions";
-import { Button } from "@nextui-org/react";
+import { Button, Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import { EmailIcon, PhoneIcon, VideoCallIcon } from "../assets";
 
 interface Props {
@@ -49,35 +49,37 @@ const InteractionLog: React.FC<Props> = ({ contactId, onOpen }) => {
   }
 
   return (
-    <div className="interaction-log">
-      <h3>Interactions</h3>
-      <ul>
+    <>
+      <Card>
         {interactions.map((interaction) => (
           <React.Fragment key={interaction._id}>
-            <li>
+            <CardHeader>
               <strong>
                 <span style={{ display: "flex", alignItems: "center" }}>
-                  Type: &nbsp;
                   {{
                     "phone call": <PhoneIcon />,
                     "video call": <VideoCallIcon />,
                     email: <EmailIcon />,
-                  }[interaction.type] || "Unknown Type"}
+                  }[interaction.type] || "Unknown Type"}{" "}
+                  &nbsp; {interaction.datetime.slice(0, 10)}
                 </span>
               </strong>
-              <p>
-                <strong>Date:</strong> {interaction.datetime.slice(0, 10)}
-              </p>
-              <p>
-                <strong>Notes:</strong> {interaction.notes}
-              </p>
-            </li>
-            <Button onPress={() => handleInteractionEditClick(interaction)}>Edit</Button>
+            </CardHeader>
+            <CardBody>
+              <p>{interaction.notes}</p>
+            </CardBody>
+            <CardFooter>
+              <Button color="primary" onPress={() => handleInteractionEditClick(interaction)}>
+                Edit
+              </Button>
+            </CardFooter>
           </React.Fragment>
         ))}
-      </ul>
-      <Button onPress={handleNewInteractionClick}>Add Interaction</Button>
-    </div>
+      </Card>
+      <Button color="primary" onPress={handleNewInteractionClick}>
+        Add Interaction
+      </Button>
+    </>
   );
 };
 

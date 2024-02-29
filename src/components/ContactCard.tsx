@@ -15,10 +15,10 @@ const ContactCard: React.FC<Props> = ({ contact, setModalMode }) => {
       <CardHeader className="flex gap-3">
         <Image
           alt="nextui logo"
-          height={40}
-          radius="sm"
+          height={100}
+          radius="full"
           src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width={40}
+          width={100}
         />
         <div className="flex flex-col">
           <p className="text-md">{contact.name}</p>
@@ -27,24 +27,23 @@ const ContactCard: React.FC<Props> = ({ contact, setModalMode }) => {
       </CardHeader>
       <CardBody>
         <span style={{ display: "flex", alignItems: "center" }}>
-          &nbsp;
-          <JobIcon /> {contact.position} at {contact.company}
+          <JobIcon /> &nbsp;
+          {contact.position} at {contact.company}
         </span>
         <span style={{ display: "flex", alignItems: "center" }}>
-          &nbsp;
-          <EmailIcon /> {contact.email}
+          <EmailIcon /> &nbsp;
+          {contact.email}
         </span>
         <span style={{ display: "flex", alignItems: "center" }}>
-          &nbsp;
-          <LocationIcon /> {contact.location}
+          <LocationIcon /> &nbsp;
+          {contact.location}
         </span>
         <span style={{ display: "flex", alignItems: "center" }}>
-          &nbsp;
-          <PhoneIcon /> {contact.phone}
+          <PhoneIcon /> &nbsp;
+          {contact.phone}
         </span>
         <span style={{ display: "flex", alignItems: "center" }}>
-          &nbsp;
-          <LinkedInIcon /> linkedin
+          <LinkedInIcon /> &nbsp;linkedin
         </span>
       </CardBody>
       <CardFooter>
