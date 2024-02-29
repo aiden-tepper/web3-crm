@@ -20,6 +20,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  Spinner,
 } from "@nextui-org/react";
 import { PlusIcon, ChevronDownIcon, SearchIcon, DeleteIcon, EditIcon, EyeIcon } from "../assets";
 
@@ -88,7 +89,7 @@ const ContactsTable: React.FC<Props> = ({
     return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
   }, [visibleColumns]);
 
-  const filteredItems = useMemo(() => {
+  const items = useMemo(() => {
     if (!contacts) return [];
     let filteredUsers = [...contacts];
 
@@ -104,14 +105,14 @@ const ContactsTable: React.FC<Props> = ({
     return filteredUsers;
   }, [contacts, filterValue, statusFilter]);
 
-  const pages = Math.ceil(filteredItems.length / rowsPerPage);
+  // const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
-  const items = useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
+  // const items = useMemo(() => {
+  //   const start = (page - 1) * rowsPerPage;
+  //   const end = start + rowsPerPage;
 
-    return filteredItems.slice(start, end);
-  }, [page, filteredItems, rowsPerPage]);
+  //   return filteredItems.slice(start, end);
+  // }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = useMemo(() => {
     return [...items].sort((a: Contact, b: Contact) => {
@@ -180,22 +181,22 @@ const ContactsTable: React.FC<Props> = ({
     }
   }, []);
 
-  const onNextPage = useCallback(() => {
-    if (page < pages) {
-      setPage(page + 1);
-    }
-  }, [page, pages]);
+  // const onNextPage = useCallback(() => {
+  //   if (page < pages) {
+  //     setPage(page + 1);
+  //   }
+  // }, [page, pages]);
 
-  const onPreviousPage = useCallback(() => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  }, [page]);
+  // const onPreviousPage = useCallback(() => {
+  //   if (page > 1) {
+  //     setPage(page - 1);
+  //   }
+  // }, [page]);
 
-  const onRowsPerPageChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setRowsPerPage(Number(e.target.value));
-    setPage(1);
-  }, []);
+  // const onRowsPerPageChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setRowsPerPage(Number(e.target.value));
+  //   setPage(1);
+  // }, []);
 
   const onSearchChange = useCallback((value?: string) => {
     if (value) {
@@ -220,34 +221,34 @@ const ContactsTable: React.FC<Props> = ({
   /* 
    TABLE CONTENT
   */
-  const bottomContent = useMemo(() => {
-    return (
-      <div className="py-2 px-2 flex justify-between items-center">
-        <span className="w-[30%] text-small text-default-400">
-          {/* {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`} */}
-        </span>
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="hidden sm:flex w-[30%] justify-end gap-2">
-          <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onPreviousPage}>
-            Previous
-          </Button>
-          <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onNextPage}>
-            Next
-          </Button>
-        </div>
-      </div>
-    );
-  }, [selectedKey, items.length, page, pages, hasSearchFilter]);
+  // const bottomContent = useMemo(() => {
+  //   return (
+  //     <div className="py-2 px-2 flex justify-between items-center">
+  //       <span className="w-[30%] text-small text-default-400">
+  //         {/* {selectedKeys === "all"
+  //           ? "All items selected"
+  //           : `${selectedKeys.size} of ${filteredItems.length} selected`} */}
+  //       </span>
+  //       <Pagination
+  //         isCompact
+  //         showControls
+  //         showShadow
+  //         color="primary"
+  //         page={page}
+  //         total={pages}
+  //         onChange={setPage}
+  //       />
+  //       <div className="hidden sm:flex w-[30%] justify-end gap-2">
+  //         <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onPreviousPage}>
+  //           Previous
+  //         </Button>
+  //         <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onNextPage}>
+  //           Next
+  //         </Button>
+  //       </div>
+  //     </div>
+  //   );
+  // }, [selectedKey, items.length, page, pages, hasSearchFilter]);
 
   const topContent = useMemo(() => {
     return (
@@ -312,7 +313,7 @@ const ContactsTable: React.FC<Props> = ({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">Total {contacts?.length ?? 0} users</span>
-          <label className="flex items-center text-default-400 text-small">
+          {/* <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
               className="bg-transparent outline-none text-default-400 text-small"
@@ -322,7 +323,7 @@ const ContactsTable: React.FC<Props> = ({
               <option value="10">10</option>
               <option value="15">15</option>
             </select>
-          </label>
+          </label> */}
         </div>
       </div>
     );
@@ -331,54 +332,60 @@ const ContactsTable: React.FC<Props> = ({
     statusFilter,
     visibleColumns,
     onSearchChange,
-    onRowsPerPageChange,
+    // onRowsPerPageChange,
     contacts?.length,
     hasSearchFilter,
   ]);
 
-  if (contacts) {
-    return (
-      <Table
-        aria-label="Example table with custom cells, pagination and sorting"
-        isHeaderSticky
-        bottomContent={bottomContent}
-        bottomContentPlacement="outside"
-        classNames={{
-          wrapper: "max-h-screen",
-        }}
-        selectedKeys={selectedKey}
-        selectionMode="multiple"
-        selectionBehavior="replace"
-        onRowAction={(key) => handleOpen(String(key))}
-        sortDescriptor={sortDescriptor}
-        topContent={topContent}
-        topContentPlacement="outside"
-        onSelectionChange={setSelectedKey}
-        onSortChange={setSortDescriptor}
+  // if (contacts) {
+  return (
+    // <div className="flex-grow overflow-hidden">
+    <Table
+      aria-label="Example table with custom cells, pagination and sorting"
+      isHeaderSticky
+      classNames={{
+        wrapper: "max-h-[calc(100vh-11rem)] overflow-auto",
+      }}
+      // bottomContent={bottomContent}
+      // bottomContentPlacement="outside"
+      selectedKeys={selectedKey}
+      selectionMode="multiple"
+      selectionBehavior="replace"
+      onRowAction={(key) => handleOpen(String(key))}
+      sortDescriptor={sortDescriptor}
+      topContent={topContent}
+      topContentPlacement="outside"
+      onSelectionChange={setSelectedKey}
+      onSortChange={setSortDescriptor}
+    >
+      <TableHeader columns={headerColumns}>
+        {(column) => (
+          <TableColumn
+            key={column.uid}
+            align={column.uid === "actions" ? "center" : "start"}
+            allowsSorting={column.sortable}
+          >
+            {column.name}
+          </TableColumn>
+        )}
+      </TableHeader>
+      <TableBody
+        // emptyContent={"No users found"}
+        items={sortedItems}
+        loadingContent={<Spinner color="white" />}
       >
-        <TableHeader columns={headerColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-              allowsSorting={column.sortable}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
-          {(item) => (
-            <TableRow key={item._id}>
-              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    );
-  } else {
-    return <div>Loading contacts...</div>;
-  }
+        {(item) => (
+          <TableRow key={item._id}>
+            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
+    // </div>
+  );
+  // } else {
+  //   return <div>Loading contacts...</div>;
+  // }
 };
 
 export default ContactsTable;

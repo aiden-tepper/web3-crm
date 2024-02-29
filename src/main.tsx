@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ConvexProvider client={convex}>
       <NextUIProvider>
-        <div className="w-screen h-screen p-8 flex items-start justify-center">
+        <div className="w-screen h-screen p-8 flex items-start justify-center box-border overflow-auto">
           <App />
         </div>
       </NextUIProvider>
