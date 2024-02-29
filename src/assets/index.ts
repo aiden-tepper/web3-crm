@@ -8,6 +8,9 @@ import { EyeIcon } from "./EyeIcon";
 import { EmailIcon } from "./EmailIcon";
 import { VideoCallIcon } from "./VideoCallIcon";
 import { PhoneIcon } from "./PhoneIcon";
+import { JobIcon } from "./JobIcon";
+import { LocationIcon } from "./LocationIcon";
+import { LinkedInIcon } from "./LinkedInIcon";
 
 export {
   PlusIcon,
@@ -20,4 +23,7 @@ export {
   EmailIcon,
   VideoCallIcon,
   PhoneIcon,
+  JobIcon,
+  LocationIcon,
+  LinkedInIcon,
 };
