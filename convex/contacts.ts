@@ -1,7 +1,7 @@
 import { query, mutation, action, internalQuery, internalMutation } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
-Z;
+
 export const getContacts = query({
   args: {},
   handler: async (ctx) => {
@@ -63,39 +63,29 @@ export const deleteContact = mutation({
   },
 });
 
-export const fetchProfilePic = action({
-  args: { id: v.id("contacts") },
-  handler: async (ctx, args) => {
-    const url = await ctx.runQuery(internal.contacts.readData, {
-      id: args.id,
-    });
-    console.log(url);
-
-    const res = await ctx.runAction(internal.linkedin.scrapeLinkedIn, {
-      url: "https://linkedin.com/in/" + url,
-    });
-
-    console.log(res);
-  },
-});
-
-// export const doSomething = action({
-//   args: { a: v.number() },
+// export const fetchProfilePic = action({
+//   args: { id: v.id("contacts") },
 //   handler: async (ctx, args) => {
-//     const data = await ctx.runMutation(internal.myMutations.writeData, {
-//       a: args.a,
+//     const url = await ctx.runQuery(internal.contacts.readData, {
+//       id: args.id,
 //     });
-//     // do something else, optionally use `data`
+//     console.log(url);
+
+//     const res = await ctx.runAction(internal.linkedin.scrapeLinkedIn, {
+//       url: "https://linkedin.com/in/" + url,
+//     });
+
+//     console.log(res);
 //   },
 // });
 
-export const readData = internalQuery({
-  args: { id: v.id("contacts") },
-  handler: async (ctx, args) => {
-    const user = await ctx.db
-      .query("contacts")
-      .filter((q) => q.eq(q.field("_id"), args.id))
-      .unique();
-    return user?.avatar;
-  },
-});
+// export const readData = internalQuery({
+//   args: { id: v.id("contacts") },
+//   handler: async (ctx, args) => {
+//     const user = await ctx.db
+//       .query("contacts")
+//       .filter((q) => q.eq(q.field("_id"), args.id))
+//       .unique();
+//     return user?.avatar;
+//   },
+// });
