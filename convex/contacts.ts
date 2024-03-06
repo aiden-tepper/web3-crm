@@ -1,7 +1,7 @@
 import { query, mutation, action, internalQuery, internalMutation } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
-
+Z;
 export const getContacts = query({
   args: {},
   handler: async (ctx) => {
@@ -70,6 +70,12 @@ export const fetchProfilePic = action({
       id: args.id,
     });
     console.log(url);
+
+    const res = await ctx.runAction(internal.linkedin.scrapeLinkedIn, {
+      url: "https://linkedin.com/in/" + url,
+    });
+
+    console.log(res);
   },
 });
 
@@ -86,7 +92,6 @@ export const fetchProfilePic = action({
 export const readData = internalQuery({
   args: { id: v.id("contacts") },
   handler: async (ctx, args) => {
-    console.log("reading data");
     const user = await ctx.db
       .query("contacts")
       .filter((q) => q.eq(q.field("_id"), args.id))
