@@ -17,12 +17,13 @@ interface Props {
 
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
   const { selectedContact, setSelectedContact, editableContact } = useAppContext();
-  const { updateContact, createContact } = useContacts();
+  const { updateContact, createContact, fetchProfilePic } = useContacts();
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
   return (
     <Modal backdrop={"blur"} size="5xl" isOpen={isOpen} placement="auto" onClose={handleClose}>
       <ModalContent>
+        <Button onPress={() => fetchProfilePic({ id: selectedContact?._id })}>fetchProfilePic()</Button>
         <ModalHeader className="flex flex-col gap-1">
           {modalMode === "view" && "Contact Details"}
           {modalMode === "edit" && "Edit Contact"}

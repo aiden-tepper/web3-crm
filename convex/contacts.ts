@@ -1,4 +1,5 @@
-import { query, mutation } from "./_generated/server";
+import { query, mutation, action, internalQuery, internalMutation } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
 export const getContacts = query({
@@ -59,5 +60,37 @@ export const deleteContact = mutation({
   handler: async (ctx, args) => {
     await ctx.db.delete(args.id);
     return true;
+  },
+});
+
+export const fetchProfilePic = action({
+  args: { id: v.id("contacts") },
+  handler: async (ctx, args) => {
+    const url = await ctx.runQuery(internal.contacts.readData, {
+      id: args.id,
+    });
+    console.log(url);
+  },
+});
+
+// export const doSomething = action({
+//   args: { a: v.number() },
+//   handler: async (ctx, args) => {
+//     const data = await ctx.runMutation(internal.myMutations.writeData, {
+//       a: args.a,
+//     });
+//     // do something else, optionally use `data`
+//   },
+// });
+
+export const readData = internalQuery({
+  args: { id: v.id("contacts") },
+  handler: async (ctx, args) => {
+    console.log("reading data");
+    const user = await ctx.db
+      .query("contacts")
+      .filter((q) => q.eq(q.field("_id"), args.id))
+      .unique();
+    return user?.avatar;
   },
 });
