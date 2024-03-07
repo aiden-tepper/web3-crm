@@ -3,7 +3,7 @@ import React from "react";
 import { Interaction } from "../types";
 import { useAppContext } from "../context/useAppContext";
 import { useInteractions } from "../hooks/useInteractions";
-import { Button, Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Button, Card, CardHeader, CardBody, CardFooter, Textarea } from "@nextui-org/react";
 import { EmailIcon, PhoneIcon, VideoCallIcon } from "../assets";
 
 interface Props {
@@ -66,7 +66,7 @@ const InteractionLog: React.FC<Props> = ({ contactId, onOpen }) => {
               </strong>
             </CardHeader>
             <CardBody>
-              <p>{interaction.notes}</p>
+              <Textarea isReadOnly maxRows={100} variant="bordered" value={interaction.notes} />
             </CardBody>
             <CardFooter>
               <Button color="primary" onPress={() => handleInteractionEditClick(interaction)}>
