@@ -11,7 +11,6 @@ import {
   Chip,
   Tooltip,
   User,
-  Pagination,
   Button,
   Selection,
   SortDescriptor,
@@ -69,9 +68,9 @@ const ContactsTable: React.FC<Props> = ({
   */
   const [filterValue, setFilterValue] = useState("");
   const [selectedKey, setSelectedKey] = useState<Selection>(new Set([]));
-  const [page, setPage] = useState(1);
+  // const [_, setPage] = useState(1);
   const [visibleColumns, setVisibleColumns] = useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
-  const [rowsPerPage, setRowsPerPage] = useState(15);
+  // const [rowsPerPage, setRowsPerPage] = useState(15);
   const [statusFilter, setStatusFilter] = useState<Selection>("all");
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "age",
@@ -201,7 +200,7 @@ const ContactsTable: React.FC<Props> = ({
   const onSearchChange = useCallback((value?: string) => {
     if (value) {
       setFilterValue(value);
-      setPage(1);
+      // setPage(1);
     } else {
       setFilterValue("");
     }
@@ -209,7 +208,7 @@ const ContactsTable: React.FC<Props> = ({
 
   const onClear = useCallback(() => {
     setFilterValue("");
-    setPage(1);
+    // setPage(1);
   }, []);
 
   const onDelete = useCallback((id: string) => {

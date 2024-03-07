@@ -6,7 +6,8 @@ import ContactCard from "./ContactCard";
 import ContactForm from "./ContactForm";
 import InteractionLog from "./InteractionLog";
 import InteractionForm from "./InteractionForm";
-import { useInteractions } from "../hooks/useInteractions";
+import { Id } from "../../convex/_generated/dataModel";
+// import { useInteractions } from "../hooks/useInteractions";
 
 import { useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -65,7 +66,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
                 color="primary"
                 onPress={() =>
                   updateContact({
-                    id: editableContact?._id,
+                    id: editableContact?._id as Id<"contacts">,
                     updates: {
                       name: editableContact?.name || "",
                       email: editableContact?.email || "",

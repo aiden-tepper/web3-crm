@@ -14,6 +14,7 @@ import {
   ModalFooter,
 } from "@nextui-org/react";
 import { PhoneIcon, VideoCallIcon, EmailIcon } from "../assets";
+import { Id } from "../../convex/_generated/dataModel";
 
 interface Props {
   contactId: string;
@@ -37,20 +38,20 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
     if (interactionMode === "create") {
       createInteraction({
         interaction: {
-          contactId: selectedContact?._id,
-          type: editableInteraction?.type,
-          datetime: editableInteraction?.datetime,
-          notes: editableInteraction?.notes,
+          contactId: selectedContact?._id as Id<"contacts">,
+          type: editableInteraction?.type || "",
+          datetime: editableInteraction?.datetime || "",
+          notes: editableInteraction?.notes || "",
         },
       }).then((result) => console.log(result));
     } else if (interactionMode === "edit") {
       updateInteraction({
-        id: editableInteraction?._id,
+        id: editableInteraction?._id as Id<"interactions">,
         updates: {
-          contactId: selectedContact?._id,
-          type: editableInteraction?.type,
-          datetime: editableInteraction?.datetime,
-          notes: editableInteraction?.notes,
+          contactId: selectedContact?._id as Id<"contacts">,
+          type: editableInteraction?.type || "",
+          datetime: editableInteraction?.datetime || "",
+          notes: editableInteraction?.notes || "",
         },
       }).then((result) => console.log(result));
       setSelectedInteraction(editableInteraction);
@@ -66,7 +67,9 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
 
   const handleInteractionDelete = () => {
     if (editableInteraction?._id) {
-      deleteInteraction({ id: editableInteraction._id }).then((result) => console.log(result));
+      deleteInteraction({ id: editableInteraction._id as Id<"interactions"> }).then((result) =>
+        console.log(result)
+      );
     }
     setInteractionMode("view");
     setSelectedInteraction(null);

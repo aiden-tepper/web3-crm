@@ -5,6 +5,7 @@ import DeleteModal from "../components/DeleteModal";
 import { useDisclosure } from "@nextui-org/react";
 import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
+import { Id } from "../../convex/_generated/dataModel";
 
 const MainView = () => {
   const [modalMode, setModalMode] = useState("view");
@@ -47,7 +48,7 @@ const MainView = () => {
 
   const confirmDelete = useCallback(() => {
     if (contactToDelete) {
-      deleteContact({ id: contactToDelete })
+      deleteContact({ id: contactToDelete as Id<"contacts"> })
         .then(() => {
           // You might want to refresh the contacts list here or show a success message
         })
