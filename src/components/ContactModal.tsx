@@ -6,6 +6,10 @@ import ContactCard from "./ContactCard";
 import ContactForm from "./ContactForm";
 import InteractionLog from "./InteractionLog";
 import InteractionForm from "./InteractionForm";
+import { useInteractions } from "../hooks/useInteractions";
+
+import { useAction } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 interface Props {
   modalMode: string;
@@ -17,13 +21,15 @@ interface Props {
 
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
   const { selectedContact, setSelectedContact, editableContact } = useAppContext();
-  const { updateContact, createContact, fetchProfilePic } = useContacts();
+  const { updateContact, createContact } = useContacts();
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
+
+  const doSomething = useAction(api.gmail.doSomething);
 
   return (
     <Modal backdrop={"blur"} size="5xl" isOpen={isOpen} placement="auto" onClose={handleClose}>
       <ModalContent>
-        <Button onPress={() => fetchProfilePic({ id: selectedContact?._id })}>fetchProfilePic()</Button>
+        <Button onPress={() => doSomething()}>doSomething()</Button>
         <ModalHeader className="flex flex-col gap-1">
           {modalMode === "view" && "Contact Details"}
           {modalMode === "edit" && "Edit Contact"}

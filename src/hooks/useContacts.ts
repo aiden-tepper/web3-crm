@@ -8,7 +8,7 @@ export function useContacts() {
   const updateContact = useMutation(api.contacts.updateContact);
   const createContact = useMutation(api.contacts.createContact);
   const deleteContact = useMutation(api.contacts.deleteContact);
-  const fetchProfilePic = useAction(api.contacts.fetchProfilePic);
+  // const fetchProfilePic = useAction(api.contacts.fetchProfilePic);
 
-  return { getContacts, updateContact, createContact, deleteContact, fetchProfilePic };
+  return { getContacts, updateContact, createContact, deleteContact };
 }
