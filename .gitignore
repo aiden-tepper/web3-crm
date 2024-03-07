@@ -154,6 +154,3 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
-
-# Convex
-convex/_generated
