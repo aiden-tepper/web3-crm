@@ -73,7 +73,7 @@ const ContactsTable: React.FC<Props> = ({
   // const [rowsPerPage, setRowsPerPage] = useState(15);
   const [statusFilter, setStatusFilter] = useState<Selection>("all");
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "age",
+    column: "name",
     direction: "ascending",
   });
 
