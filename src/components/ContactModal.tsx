@@ -28,7 +28,14 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
   const doSomething = useAction(api.gmail.doSomething);
 
   return (
-    <Modal backdrop={"blur"} size="5xl" isOpen={isOpen} placement="auto" onClose={handleClose}>
+    <Modal
+      backdrop={"blur"}
+      size="5xl"
+      isOpen={isOpen}
+      placement="auto"
+      onClose={handleClose}
+      scrollBehavior="outside"
+    >
       <ModalContent>
         <Button onPress={() => doSomething()}>doSomething()</Button>
         <ModalHeader className="flex flex-col gap-1">

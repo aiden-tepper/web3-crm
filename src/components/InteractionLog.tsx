@@ -50,8 +50,8 @@ const InteractionLog: React.FC<Props> = ({ contactId, onOpen }) => {
 
   return (
     <>
-      <Card>
-        {interactions.map((interaction) => (
+      {interactions.map((interaction) => (
+        <Card>
           <React.Fragment key={interaction._id}>
             <CardHeader>
               <strong>
@@ -74,8 +74,8 @@ const InteractionLog: React.FC<Props> = ({ contactId, onOpen }) => {
               </Button>
             </CardFooter>
           </React.Fragment>
-        ))}
-      </Card>
+        </Card>
+      ))}
       <Button color="primary" onPress={handleNewInteractionClick}>
         Add Interaction
       </Button>
