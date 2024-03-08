@@ -11,6 +11,7 @@ import { Id } from "../../convex/_generated/dataModel";
 
 import { useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { Contact } from "../types";
 
 interface Props {
   modalMode: string;
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
-  const { selectedContact, setSelectedContact, editableContact } = useAppContext();
+  const { selectedContact, setSelectedContact, editableContact, setEditableContact } = useAppContext();
   const { updateContact, createContact } = useContacts();
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
@@ -104,26 +105,32 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
               </Button>
               <Button
                 color="primary"
-                onPress={() =>
+                onPress={() => {
+                  const newContact = {
+                    name: editableContact?.name || "",
+                    email: editableContact?.email || "",
+                    phone: editableContact?.phone || "",
+                    position: editableContact?.position || "",
+                    company: editableContact?.company || "",
+                    location: editableContact?.location || "",
+                    description: editableContact?.description || "",
+                    avatar: editableContact?.avatar || "",
+                    team: editableContact?.team || "",
+                    status: editableContact?.status || "",
+                  };
                   createContact({
-                    contact: {
-                      name: editableContact?.name || "",
-                      email: editableContact?.email || "",
-                      phone: editableContact?.phone || "",
-                      position: editableContact?.position || "",
-                      company: editableContact?.company || "",
-                      location: editableContact?.location || "",
-                      description: editableContact?.description || "",
-                      avatar: editableContact?.avatar || "",
-                      team: editableContact?.team || "",
-                      status: editableContact?.status || "",
-                    },
+                    contact: newContact,
                   }).then((result) => {
                     console.log(result);
-                    setSelectedContact(editableContact);
+                    const updatedContact = {
+                      ...newContact,
+                      _id: result,
+                    } as Contact;
+                    setEditableContact(updatedContact);
+                    setSelectedContact(updatedContact);
                     setModalMode("view");
-                  })
-                }
+                  });
+                }}
               >
                 Save
               </Button>
