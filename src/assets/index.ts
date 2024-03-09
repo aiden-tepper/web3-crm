@@ -14,6 +14,7 @@ import { LinkedInIcon } from "./LinkedInIcon";
 import { CompanyIcon } from "./CompanyIcon";
 import { EllipsisIcon } from "./EllipsisIcon";
 import { PersonIcon } from "./PersonIcon";
+import { CoffeeIcon } from "./CoffeeIcon";
 
 export {
   PlusIcon,
@@ -32,4 +33,5 @@ export {
   CompanyIcon,
   EllipsisIcon,
   PersonIcon,
+  CoffeeIcon,
 };

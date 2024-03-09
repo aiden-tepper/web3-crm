@@ -13,7 +13,7 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/react";
-import { PhoneIcon, VideoCallIcon, EmailIcon } from "../assets";
+import { PhoneIcon, VideoCallIcon, EmailIcon, CoffeeIcon } from "../assets";
 import { Id } from "../../convex/_generated/dataModel";
 
 interface Props {
@@ -40,7 +40,7 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
         interaction: {
           contactId: selectedContact?._id as Id<"contacts">,
           type: editableInteraction?.type || "",
-          datetime: editableInteraction?.datetime || "",
+          datetime: editableInteraction?.datetime || currDate,
           notes: editableInteraction?.notes || "",
         },
       }).then((result) => console.log(result));
@@ -124,6 +124,14 @@ const InteractionForm: React.FC<Props> = ({ contactId, isOpen, onClose }) => {
                 onClick={() => handleInteractionFieldChange("type", "email")}
               >
                 <EmailIcon />
+              </span>
+            </Tooltip>
+            <Tooltip content="in-person">
+              <span
+                className={`text-lg ${getIconColor("in-person")} cursor-pointer active:opacity-50`}
+                onClick={() => handleInteractionFieldChange("type", "in-person")}
+              >
+                <CoffeeIcon />
               </span>
             </Tooltip>
           </div>

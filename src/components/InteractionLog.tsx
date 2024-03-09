@@ -4,7 +4,7 @@ import { Interaction } from "../types";
 import { useAppContext } from "../context/useAppContext";
 import { useInteractions } from "../hooks/useInteractions";
 import { Button, Card, CardHeader, CardBody, CardFooter, Textarea } from "@nextui-org/react";
-import { EmailIcon, PhoneIcon, VideoCallIcon } from "../assets";
+import { EmailIcon, PhoneIcon, VideoCallIcon, CoffeeIcon } from "../assets";
 
 interface Props {
   contactId: string;
@@ -60,6 +60,7 @@ const InteractionLog: React.FC<Props> = ({ contactId, onOpen }) => {
                     "phone call": <PhoneIcon />,
                     "video call": <VideoCallIcon />,
                     email: <EmailIcon />,
+                    "in-person": <CoffeeIcon />,
                   }[interaction.type] || "Unknown Type"}{" "}
                   &nbsp; {interaction.datetime.slice(0, 10)}
                 </span>
