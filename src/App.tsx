@@ -1,14 +1,12 @@
 import "./styles.css";
 import { AppProvider } from "./context/AppContext";
-import { ThirdwebProvider, ConnectEmbed, useAddress } from "@thirdweb-dev/react";
+import { ThirdwebProvider, useAddress } from "@thirdweb-dev/react";
 import MainView from "./views/MainView";
+import LoginView from "./views/LoginView";
 
 function AuthenticatedApp() {
-  // Use useAddress hook to check if user is signed in
   const address = useAddress();
-
-  // If an address is present, render MainView, otherwise show the ConnectEmbed for sign in
-  return address ? <MainView /> : <ConnectEmbed />;
+  return address ? <MainView /> : <LoginView />;
 }
 
 function App() {
