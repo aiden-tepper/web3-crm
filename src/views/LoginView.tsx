@@ -47,7 +47,17 @@ const LoginView: React.FC = () => {
           justifyContent: "center", // Center items horizontally
         }}
       >
-        <ConnectEmbed />
+        <ConnectEmbed
+          auth={{
+            loginOptional: false,
+            onLogin() {
+              console.log("user signed in");
+            },
+            onLogout() {
+              console.log("user signed out");
+            },
+          }}
+        />
       </div>
 
       <p style={{ position: "absolute", bottom: "0", marginBottom: "8px" }}>Created by Aiden Tepper</p>
