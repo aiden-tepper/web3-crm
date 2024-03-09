@@ -343,7 +343,7 @@ const ContactsTable: React.FC<Props> = ({
       aria-label="Example table with custom cells, pagination and sorting"
       isHeaderSticky
       classNames={{
-        wrapper: "max-h-[calc(100vh-11rem)] overflow-auto",
+        wrapper: "max-h-[calc(100vh-15rem)] overflow-auto",
       }}
       // bottomContent={bottomContent}
       // bottomContentPlacement="outside"

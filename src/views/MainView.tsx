@@ -6,6 +6,7 @@ import { useDisclosure } from "@nextui-org/react";
 import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 import { Id } from "../../convex/_generated/dataModel";
+import CustomNavbar from "../components/CustomNavbar";
 
 const MainView = () => {
   const [modalMode, setModalMode] = useState("view");
@@ -66,24 +67,27 @@ const MainView = () => {
 
   return (
     <>
-      <ContactsTable
-        contacts={contacts}
-        handleOpen={handleOpen}
-        setIsDeleteModalVisible={setIsDeleteModalVisible}
-        setContactToDelete={setContactToDelete}
-      ></ContactsTable>
-      <ContactModal
-        modalMode={modalMode}
-        setModalMode={setModalMode}
-        isOpen={isOpen}
-        onClose={onClose}
-        handleClose={handleClose}
-      ></ContactModal>
-      <DeleteModal
-        isDeleteModalVisible={isDeleteModalVisible}
-        cancelDelete={cancelDelete}
-        confirmDelete={confirmDelete}
-      ></DeleteModal>
+      <div style={{ display: "flex", flexDirection: "column", width: "100vw" }}>
+        <CustomNavbar />
+        <ContactsTable
+          contacts={contacts}
+          handleOpen={handleOpen}
+          setIsDeleteModalVisible={setIsDeleteModalVisible}
+          setContactToDelete={setContactToDelete}
+        ></ContactsTable>
+        <ContactModal
+          modalMode={modalMode}
+          setModalMode={setModalMode}
+          isOpen={isOpen}
+          onClose={onClose}
+          handleClose={handleClose}
+        ></ContactModal>
+        <DeleteModal
+          isDeleteModalVisible={isDeleteModalVisible}
+          cancelDelete={cancelDelete}
+          confirmDelete={confirmDelete}
+        ></DeleteModal>
+      </div>
     </>
   );
 };
