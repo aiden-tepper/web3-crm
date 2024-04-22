@@ -15,6 +15,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [editableInteraction, setEditableInteraction] = useState<Interaction | null>(null);
   const [interactionMode, setInteractionMode] = useState<"create" | "edit" | "view">("view");
   const [userId, setUserId] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
 
   const address = useAddress();
   const users = useQuery(api.users.getUser, {
@@ -26,6 +27,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     if (address && users) {
       if (users.length > 0) {
         setUserId(users[0]._id);
+        setUserName(users[0].name);
       }
     }
   }, [address, users]);
@@ -66,6 +68,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     handleContactFieldChange,
     handleInteractionFieldChange,
     userId,
+    userName,
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

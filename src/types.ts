@@ -46,6 +46,7 @@ export interface AppContextProps {
   handleContactFieldChange: (field: keyof Contact, value: string) => void;
   handleInteractionFieldChange: (field: keyof Interaction, value: string) => void;
   userId: string | null;
+  userName: string | null;
 }
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
