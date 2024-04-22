@@ -76,12 +76,12 @@ const MainView = () => {
   const address = useAddress();
   if (userId === "newuser") {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1>Welcome</h1>
-        <h2>Please enter your name to continue</h2>
+      <div className="flex flex-col gap-2 items-center justify-center h-full">
+        <h1 className="text-3xl">Welcome!</h1>
+        <h2 className="text-xl">Please enter your name to continue</h2>
         <Input
           fullWidth
-          color="primary"
+          color="default"
           size="lg"
           placeholder="Your Name"
           value={name}
@@ -90,6 +90,7 @@ const MainView = () => {
         />
         <Button
           className="mt-4"
+          color="primary"
           onPress={() => {
             if (!address || !name) {
               return;
