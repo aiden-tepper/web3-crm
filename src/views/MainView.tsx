@@ -7,6 +7,7 @@ import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 import { Id } from "../../convex/_generated/dataModel";
 import CustomNavbar from "../components/CustomNavbar";
+import { Contact } from "../types";
 
 const MainView = () => {
   const [modalMode, setModalMode] = useState("view");
@@ -36,7 +37,8 @@ const MainView = () => {
       setModalMode("create");
       onOpen();
     } else {
-      setSelectedContact(contacts?.find((contact) => contact._id === key) ?? null);
+      const selected = contacts?.find((contact) => contact._id === key) ?? null;
+      setSelectedContact(selected);
       onOpen();
     }
   };
@@ -70,6 +72,7 @@ const MainView = () => {
       <div style={{ display: "flex", flexDirection: "column", width: "100vw" }}>
         <CustomNavbar />
         <ContactsTable
+          key={contacts ? contacts.length : 0}
           contacts={contacts}
           handleOpen={handleOpen}
           setIsDeleteModalVisible={setIsDeleteModalVisible}
