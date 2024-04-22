@@ -1,7 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Contact, Interaction, AppContextProps } from "../types";
 import { useAddress } from "@thirdweb-dev/react";
-import { useUsers } from "../hooks/useUsers";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { User } from "../types";
 
 export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
@@ -15,14 +17,18 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [userId, setUserId] = useState<string | null>(null);
 
   const address = useAddress();
-  const { getUser } = useUsers({ walletAddress: address || null });
+  const users = useQuery(api.users.getUser, {
+    walletAddress: address || "",
+  }) as User[];
 
   useEffect(() => {
-    if (address) {
-      const user = getUser;
-      setUserId(user[0]._id);
+    console.log(users, address);
+    if (address && users) {
+      if (users.length > 0) {
+        setUserId(users[0]._id);
+      }
     }
-  }, [address, getUser]);
+  }, [address, users]);
 
   useEffect(() => {
     setEditableContact(selectedContact);

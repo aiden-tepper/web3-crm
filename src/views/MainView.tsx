@@ -12,7 +12,7 @@ const MainView = () => {
   const [modalMode, setModalMode] = useState("view");
   const { setSelectedContact, setEditableContact, userId } = useAppContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { getContacts, deleteContact } = useContacts({ userId: userId || null });
+  const { getContacts, deleteContact } = useContacts({ userId: userId || "" });
   const contacts = getContacts;
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [contactToDelete, setContactToDelete] = useState<string | null>(null);
@@ -65,6 +65,12 @@ const MainView = () => {
     setIsDeleteModalVisible(false);
     setContactToDelete(null);
   }, []);
+
+  if (!userId) {
+    return <div>first time!</div>;
+  } else {
+    return <div>userId: {userId}</div>;
+  }
 
   return (
     <>

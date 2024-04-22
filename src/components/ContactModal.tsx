@@ -24,7 +24,7 @@ interface Props {
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
   const { selectedContact, setSelectedContact, editableContact, setEditableContact, userId } =
     useAppContext();
-  const { updateContact, createContact } = useContacts({ userId: userId || null });
+  const { updateContact, createContact } = useContacts({ userId: userId || "" });
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
   // const doSomething = useAction(api.gmail.doSomething);
