@@ -51,7 +51,7 @@ function capitalize(str: string) {
 }
 
 interface Props {
-  contacts: Contact[] | null;
+  contacts: Contact[] | undefined;
   handleOpen: (key: string) => void;
   setIsDeleteModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setContactToDelete: React.Dispatch<React.SetStateAction<string | null>>;
@@ -89,7 +89,10 @@ const ContactsTable: React.FC<Props> = ({
   }, [visibleColumns]);
 
   const items = useMemo(() => {
-    if (!contacts) return [];
+    if (contacts === undefined) {
+      return undefined;
+    }
+
     let filteredUsers = [...contacts];
 
     if (hasSearchFilter) {
@@ -114,6 +117,10 @@ const ContactsTable: React.FC<Props> = ({
   // }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = useMemo(() => {
+    if (items === undefined) {
+      return undefined;
+    }
+
     return [...items].sort((a: Contact, b: Contact) => {
       const first = a[sortDescriptor.column as keyof Contact] as unknown as number;
       const second = b[sortDescriptor.column as keyof Contact] as unknown as number;
@@ -336,7 +343,8 @@ const ContactsTable: React.FC<Props> = ({
     hasSearchFilter,
   ]);
 
-  // if (contacts) {
+  const isLoading = contacts === undefined;
+
   return (
     // <div className="flex-grow overflow-hidden">
     <Table
@@ -369,9 +377,10 @@ const ContactsTable: React.FC<Props> = ({
         )}
       </TableHeader>
       <TableBody
-        // emptyContent={"No users found"}
-        items={sortedItems}
-        loadingContent={<Spinner color="white" />}
+        emptyContent={sortedItems && sortedItems.length === 0 ? "No users found" : " "}
+        items={sortedItems || []}
+        isLoading={isLoading}
+        loadingContent={<Spinner color="white" label="Loading..." />}
       >
         {(item) => (
           <TableRow key={item._id}>
