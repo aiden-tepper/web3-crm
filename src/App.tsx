@@ -1,9 +1,8 @@
 import "./styles.css";
 import { AppProvider } from "./context/AppContext";
-import { useConnectionStatus } from "@thirdweb-dev/react";
+import { useConnectionStatus, ThirdwebProvider } from "@thirdweb-dev/react";
 import MainView from "./views/MainView";
 import LoginView from "./views/LoginView";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { CircularProgress } from "@nextui-org/react";
 
 function AuthenticatedApp() {

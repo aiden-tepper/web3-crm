@@ -9,8 +9,8 @@ import InteractionForm from "./InteractionForm";
 import { Id } from "../../convex/_generated/dataModel";
 // import { useInteractions } from "../hooks/useInteractions";
 
-import { useAction } from "convex/react";
-import { api } from "../../convex/_generated/api";
+// import { useAction } from "convex/react";
+// import { api } from "../../convex/_generated/api";
 import { Contact } from "../types";
 
 interface Props {
@@ -26,7 +26,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
   const { updateContact, createContact } = useContacts();
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
-  const doSomething = useAction(api.gmail.doSomething);
+  // const doSomething = useAction(api.gmail.doSomething);
 
   return (
     <Modal
@@ -38,7 +38,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
       scrollBehavior="outside"
     >
       <ModalContent>
-        <Button onPress={() => doSomething()}>doSomething()</Button>
+        {/* <Button onPress={() => doSomething()}>doSomething()</Button> */}
         <ModalHeader className="flex flex-col gap-1">
           {modalMode === "view" && "Contact Details"}
           {modalMode === "edit" && "Edit Contact"}
