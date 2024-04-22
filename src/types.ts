@@ -3,6 +3,7 @@ import { SVGProps } from "react";
 
 export interface Contact {
   _id: string;
+  userId: string;
   name: string;
   email: string;
   phone: string;
@@ -23,6 +24,12 @@ export interface Interaction {
   notes: string;
 }
 
+export interface User {
+  _id: string;
+  name: string;
+  walletAddress: string;
+}
+
 export interface AppContextProps {
   selectedContact: Contact | null;
   setSelectedContact: (contact: Contact | null) => void;
@@ -38,6 +45,7 @@ export interface AppContextProps {
   setInteractionMode: (mode: "create" | "edit" | "view") => void;
   handleContactFieldChange: (field: keyof Contact, value: string) => void;
   handleInteractionFieldChange: (field: keyof Interaction, value: string) => void;
+  userId: string | null;
 }
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {

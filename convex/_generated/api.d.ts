@@ -17,6 +17,7 @@ import type {
 import type * as contacts from "../contacts.js";
 import type * as gmail from "../gmail.js";
 import type * as interactions from "../interactions.js";
+import type * as users from "../users.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   contacts: typeof contacts;
   gmail: typeof gmail;
   interactions: typeof interactions;
+  users: typeof users;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Contact, Interaction, AppContextProps } from "../types";
+import { useAddress } from "@thirdweb-dev/react";
+import { useUsers } from "../hooks/useUsers";
 
 export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
@@ -10,7 +12,17 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedInteraction, setSelectedInteraction] = useState<Interaction | null>(null);
   const [editableInteraction, setEditableInteraction] = useState<Interaction | null>(null);
   const [interactionMode, setInteractionMode] = useState<"create" | "edit" | "view">("view");
-  const [address, setAddress] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  const address = useAddress();
+  const { getUser } = useUsers({ walletAddress: address || null });
+
+  useEffect(() => {
+    if (address) {
+      const user = getUser;
+      setUserId(user[0]._id);
+    }
+  }, [address, getUser]);
 
   useEffect(() => {
     setEditableContact(selectedContact);
@@ -45,10 +57,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     setEditableInteraction,
     interactionMode,
     setInteractionMode,
-    address,
-    setAddress,
     handleContactFieldChange,
     handleInteractionFieldChange,
+    userId,
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

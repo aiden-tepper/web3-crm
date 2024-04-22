@@ -3,9 +3,12 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 export const getContacts = query({
-  args: {},
-  handler: async (ctx) => {
-    return await ctx.db.query("contacts").collect();
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("contacts")
+      .filter((q) => q.eq(q.field("userId"), args.userId))
+      .collect();
   },
 });
 
@@ -13,6 +16,7 @@ export const updateContact = mutation({
   args: {
     id: v.id("contacts"),
     updates: v.object({
+      userId: v.string(),
       name: v.string(),
       email: v.string(),
       phone: v.string(),
@@ -35,6 +39,7 @@ export const updateContact = mutation({
 export const createContact = mutation({
   args: {
     contact: v.object({
+      userId: v.string(),
       name: v.string(),
       email: v.string(),
       phone: v.string(),

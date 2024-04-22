@@ -22,8 +22,9 @@ interface Props {
 }
 
 const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClose, handleClose }) => {
-  const { selectedContact, setSelectedContact, editableContact, setEditableContact } = useAppContext();
-  const { updateContact, createContact } = useContacts();
+  const { selectedContact, setSelectedContact, editableContact, setEditableContact, userId } =
+    useAppContext();
+  const { updateContact, createContact } = useContacts({ userId: userId || null });
   const [isInteractionFormOpen, setIsInteractionFormOpen] = useState(false);
 
   // const doSomething = useAction(api.gmail.doSomething);
@@ -76,6 +77,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
                   updateContact({
                     id: editableContact?._id as Id<"contacts">,
                     updates: {
+                      userId: editableContact?.userId || "",
                       name: editableContact?.name || "",
                       email: editableContact?.email || "",
                       phone: editableContact?.phone || "",
@@ -107,6 +109,7 @@ const ContactModal: React.FC<Props> = ({ modalMode, setModalMode, isOpen, onClos
                 color="primary"
                 onPress={() => {
                   const newContact = {
+                    userId: editableContact?.userId || "",
                     name: editableContact?.name || "",
                     email: editableContact?.email || "",
                     phone: editableContact?.phone || "",
