@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import ContactsTable from "./ContactsTable";
 import ContactModal from "../components/ContactModal";
 import DeleteModal from "../components/DeleteModal";
-import { useDisclosure, Button, Input } from "@nextui-org/react";
+import { useDisclosure, Button, Input, CircularProgress } from "@nextui-org/react";
 import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 import { Id } from "../../convex/_generated/dataModel";
@@ -74,7 +74,7 @@ const MainView = () => {
 
   const [name, setName] = useState("");
   const address = useAddress();
-  if (!userId) {
+  if (userId === "newuser") {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <h1>Welcome</h1>
@@ -102,7 +102,6 @@ const MainView = () => {
               user: newUser,
             }).then((result) => {
               console.log(result);
-              // setUserId(result.data._id);
             });
           }}
         >
@@ -110,9 +109,13 @@ const MainView = () => {
         </Button>
       </div>
     );
+  } else if (!userId) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <CircularProgress aria-label="Loading..." label="Loading..." size="lg" />
+      </div>
+    );
   }
-
-  console.log("ADDRESS:", address);
 
   return (
     <>

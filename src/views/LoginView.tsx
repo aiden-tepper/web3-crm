@@ -31,7 +31,7 @@ const LoginView: React.FC = () => {
         >
           <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}>Welcome to web3-crm!</h1>
           <h2 style={{ fontSize: "18px", marginBottom: "16px" }}>
-            <i>please login with your Web3 wallet of choice</i>
+            <i>Please login with your Web3 wallet of choice</i>
           </h2>
         </div>
       </div>

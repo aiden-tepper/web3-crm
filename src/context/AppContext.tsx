@@ -23,11 +23,12 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   }) as User[];
 
   useEffect(() => {
-    console.log(users, address);
     if (address && users) {
       if (users.length > 0) {
         setUserId(users[0]._id);
         setUserName(users[0].name);
+      } else {
+        setUserId("newuser");
       }
     }
   }, [address, users]);
