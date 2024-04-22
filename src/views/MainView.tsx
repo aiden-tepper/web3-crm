@@ -2,11 +2,15 @@ import { useState, useCallback } from "react";
 import ContactsTable from "./ContactsTable";
 import ContactModal from "../components/ContactModal";
 import DeleteModal from "../components/DeleteModal";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure, Button, Input } from "@nextui-org/react";
 import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 import { Id } from "../../convex/_generated/dataModel";
 import CustomNavbar from "../components/CustomNavbar";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { useAddress } from "@thirdweb-dev/react";
+// import { User } from "../types";
 
 const MainView = () => {
   const [modalMode, setModalMode] = useState("view");
@@ -16,6 +20,8 @@ const MainView = () => {
   const contacts = getContacts;
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [contactToDelete, setContactToDelete] = useState<string | null>(null);
+
+  const createUser = useMutation(api.users.createUser);
 
   const handleOpen = (key: string) => {
     if (key === "create") {
@@ -66,11 +72,47 @@ const MainView = () => {
     setContactToDelete(null);
   }, []);
 
+  const [name, setName] = useState("");
+  const address = useAddress();
   if (!userId) {
-    return <div>first time!</div>;
-  } else {
-    return <div>userId: {userId}</div>;
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1>Welcome</h1>
+        <h2>Please enter your name to continue</h2>
+        <Input
+          fullWidth
+          color="primary"
+          size="lg"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="mt-4"
+        />
+        <Button
+          className="mt-4"
+          onPress={() => {
+            if (!address || !name) {
+              return;
+            }
+            const newUser = {
+              name: name,
+              walletAddress: address,
+            };
+            createUser({
+              user: newUser,
+            }).then((result) => {
+              console.log(result);
+              // setUserId(result.data._id);
+            });
+          }}
+        >
+          Submit
+        </Button>
+      </div>
+    );
   }
+
+  console.log("ADDRESS:", address);
 
   return (
     <>
