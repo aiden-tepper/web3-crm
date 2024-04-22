@@ -9,7 +9,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import CustomNavbar from "../components/CustomNavbar";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect } from "@thirdweb-dev/react";
 // import { User } from "../types";
 
 const MainView = () => {
@@ -74,6 +74,8 @@ const MainView = () => {
 
   const [name, setName] = useState("");
   const address = useAddress();
+  const disconnect = useDisconnect();
+
   if (userId === "newuser") {
     return (
       <div className="flex flex-col gap-2 items-center justify-center h-full">
@@ -88,26 +90,31 @@ const MainView = () => {
           onChange={(e) => setName(e.target.value)}
           className="mt-4"
         />
-        <Button
-          className="mt-4"
-          color="primary"
-          onPress={() => {
-            if (!address || !name) {
-              return;
-            }
-            const newUser = {
-              name: name,
-              walletAddress: address,
-            };
-            createUser({
-              user: newUser,
-            }).then((result) => {
-              console.log(result);
-            });
-          }}
-        >
-          Submit
-        </Button>
+        <div className="flex flex-row gap-6 items-center justify-center">
+          <Button onClick={disconnect} variant="flat" className="mt-4">
+            Cancel
+          </Button>
+          <Button
+            className="mt-4"
+            color="primary"
+            onPress={() => {
+              if (!address || !name) {
+                return;
+              }
+              const newUser = {
+                name: name,
+                walletAddress: address,
+              };
+              createUser({
+                user: newUser,
+              }).then((result) => {
+                console.log(result);
+              });
+            }}
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     );
   } else if (!userId) {
