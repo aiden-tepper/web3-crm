@@ -7,7 +7,6 @@ import { useAppContext } from "../context/useAppContext";
 import { useContacts } from "../hooks/useContacts";
 import { Id } from "../../convex/_generated/dataModel";
 import CustomNavbar from "../components/CustomNavbar";
-import { Contact } from "../types";
 
 const MainView = () => {
   const [modalMode, setModalMode] = useState("view");

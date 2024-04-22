@@ -1,9 +1,11 @@
 // CustomNavbar.tsx
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button } from "@nextui-org/react";
+import { useDisconnect } from "@thirdweb-dev/react";
 
 const CustomNavbar: React.FC = () => {
+  const disconnect = useDisconnect();
+
   return (
     <Navbar>
       <NavbarBrand>
@@ -12,7 +14,9 @@ const CustomNavbar: React.FC = () => {
       </NavbarBrand>
       <NavbarContent justify="end">
         <NavbarItem>
-          <ConnectWallet />
+          <Button onClick={disconnect} variant="flat" className="font-bold">
+            Log Out
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

@@ -276,7 +276,7 @@ const ContactsTable: React.FC<Props> = ({
           <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                <Button endContent={<ChevronDownIcon className="text-small" />} color="default">
                   Status
                 </Button>
               </DropdownTrigger>
@@ -297,7 +297,7 @@ const ContactsTable: React.FC<Props> = ({
             </Dropdown>
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                <Button endContent={<ChevronDownIcon className="text-small" />} color="default">
                   Columns
                 </Button>
               </DropdownTrigger>
